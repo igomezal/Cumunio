@@ -15,7 +15,7 @@
         android:inputType="textPersonName"
         android:text="@string/Username"
         android:ems="10"
-        android:id="@+id/editText"
+        android:id="@+id/username"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -23,7 +23,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
-        android:text="@string/password"
         android:ems="10"
         android:id="@+id/editText2"
         android:layout_below="@+id/editText"
@@ -41,5 +40,6 @@
         android:layout_alignStart="@+id/editText2"
         android:layout_marginTop="45dp"
         android:layout_alignRight="@+id/editText2"
-        android:layout_alignEnd="@+id/editText2" />
+        android:layout_alignEnd="@+id/editText2"
+        android:onClick="sendMessage"/>
 </RelativeLayout>
