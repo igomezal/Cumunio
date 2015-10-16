@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Comunio</string>
     <string name="action_settings">Settings</string>
+    <string name="Username">Name</string>
+    <string name="password">Pass</string>
+    <string name="login">Log In</string>
 </resources>
