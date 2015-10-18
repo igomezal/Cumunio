@@ -19,8 +19,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoggedIn"
+            android:name=".Menuss"
             android:label="@string/title_activity_logged_in"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".DatosJugador"
+            android:label="@string/title_activity_datos_jugador"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
     </application>

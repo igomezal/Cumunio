@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     public final static String EXTRA_MESSAGE = "com.ps.comunio.MESSAGE";
@@ -24,11 +25,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void sendMessage(View view){
-        Intent intent = new Intent(this,LoggedIn.class);
         EditText usuario = (EditText) findViewById(R.id.username);
         String strUsuario = usuario.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE,strUsuario);
-        startActivity(intent);
+        EditText pass = (EditText)findViewById(R.id.editText2);
+        String strPass = pass.getText().toString();
+
+        if(strUsuario.equals("Pepito") && strPass.equals("0000")) {
+            Intent intent = new Intent(this, Menuss.class);
+            intent.putExtra(EXTRA_MESSAGE, strUsuario);
+            startActivity(intent);
+        }else{
+            Toast.makeText(this, "Usuario o contraseña incorrecta", Toast.LENGTH_LONG).show();
+        }
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

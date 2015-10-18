@@ -13,11 +13,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="@string/Username"
         android:ems="10"
         android:id="@+id/username"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_above="@+id/editText2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="46dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -25,21 +25,38 @@
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/editText2"
-        android:layout_below="@+id/editText"
-        android:layout_alignLeft="@+id/editText"
-        android:layout_alignStart="@+id/editText"
-        android:layout_marginTop="45dp" />
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/username"
+        android:layout_alignStart="@+id/username" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/login"
         android:id="@+id/button"
+        android:onClick="sendMessage"
         android:layout_below="@+id/editText2"
         android:layout_alignLeft="@+id/editText2"
         android:layout_alignStart="@+id/editText2"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="33dp"
         android:layout_alignRight="@+id/editText2"
-        android:layout_alignEnd="@+id/editText2"
-        android:onClick="sendMessage"/>
+        android:layout_alignEnd="@+id/editText2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Username"
+        android:id="@+id/textView"
+        android:layout_above="@+id/username"
+        android:layout_alignLeft="@+id/username"
+        android:layout_alignStart="@+id/username" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Contraseña"
+        android:id="@+id/textView2"
+        android:layout_above="@+id/editText2"
+        android:layout_alignLeft="@+id/username"
+        android:layout_alignStart="@+id/username" />
 </RelativeLayout>
