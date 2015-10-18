@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/menu_listJugadores"
+            android:icon="@android:drawable/ic_menu_sort_by_size"
+            android:title="@string/listJugadores"/>
+    </group>
+    <item
+        android:id="@+id/navigation_subheader"
+        android:title="@string/extras">
+        <menu>
+            <item
+                android:id="@+id/logout"
+                android:icon="@android:drawable/ic_menu_directions"
+                android:title="@string/LogOut"/>
+        </menu>
+    </item>
+</menu>
