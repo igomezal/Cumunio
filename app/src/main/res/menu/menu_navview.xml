@@ -2,6 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/Inicio"
+            android:icon="@android:drawable/ic_menu_sort_by_size"
+            android:title="Inicio"/>
+        <item
             android:id="@+id/menu_listJugadores"
             android:icon="@android:drawable/ic_menu_sort_by_size"
             android:title="@string/listJugadores"/>

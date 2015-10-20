@@ -1,8 +1,6 @@
 package com.ps.comunio;
 
-/**
- * Created by Ivan on 16/10/2015.
- */
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -11,10 +9,8 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 public class Menuss extends AppCompatActivity {
     private Toolbar appbar;
@@ -26,6 +22,9 @@ public class Menuss extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         final Intent logout = new Intent(this,MainActivity.class);
+
+        String usuario = ("Perfil de "+getIntent().getStringExtra(MainActivity.EXTRA_MESSAGE));
+        setTitle(usuario);
 
         appbar = (Toolbar)findViewById(R.id.appbar);
         setSupportActionBar(appbar);
@@ -68,6 +67,10 @@ public class Menuss extends AppCompatActivity {
                         Fragment fragment = null;
 
                         switch (menuItem.getItemId()) {
+                            case R.id.Inicio:
+                                fragment =  new fragmentInicio();
+                                fragmentTransaction = true;
+                                break;
                             case R.id.menu_listJugadores:
                                 fragment = new Fragment1();
                                 fragmentTransaction = true;
@@ -82,7 +85,12 @@ public class Menuss extends AppCompatActivity {
                                     .commit();
 
                             menuItem.setChecked(true);
-                            getSupportActionBar().setTitle(menuItem.getTitle());
+                            if(menuItem.getItemId() != R.id.Inicio) {
+                                getSupportActionBar().setTitle(menuItem.getTitle());
+                            }else {
+                                String usuario = ("Perfil de "+getIntent().getStringExtra(MainActivity.EXTRA_MESSAGE));
+                                getSupportActionBar().setTitle(usuario);
+                            }
                         }
 
                         drawerLayout.closeDrawers();
