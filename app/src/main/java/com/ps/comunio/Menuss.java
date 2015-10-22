@@ -75,6 +75,10 @@ public class Menuss extends AppCompatActivity {
                                 fragment = new Fragment1();
                                 fragmentTransaction = true;
                                 break;
+                            case R.id.menu_listFichajes:
+                                fragment = new fragmentFichajes();
+                                fragmentTransaction = true;
+                                break;
                             case R.id.logout:
                                 startActivity(logout);
                         }

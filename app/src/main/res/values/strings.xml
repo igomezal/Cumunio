@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Comunio</string>
     <string name="action_settings">Settings</string>
+    <string name="action_aniadirFichaje">Nuevo Fichaje</string>
     <string name="Username">Introduce tu usuario:</string>
     <string name="Contraseña">Introduce tu contraseña:</string>
     <string name="login">Log In</string>
@@ -12,9 +13,9 @@
     <string name="Uso">Uso</string>
     <string name="jugadores">Listado Jugadores</string>
 
-<!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="listJugadores">Jugadores</string>
+    <string name="listFichajes">Fichajes</string>
     <string name="extras">Extras</string>
     <string name="LogOut">Desconectar</string>
     <string name="fragment1">Fragmento 1</string>

@@ -9,6 +9,10 @@
             android:id="@+id/menu_listJugadores"
             android:icon="@android:drawable/ic_menu_sort_by_size"
             android:title="@string/listJugadores"/>
+        <item
+            android:id="@+id/menu_listFichajes"
+            android:icon="@android:drawable/ic_menu_sort_by_size"
+            android:title="@string/listFichajes"/>
     </group>
     <item
         android:id="@+id/navigation_subheader"

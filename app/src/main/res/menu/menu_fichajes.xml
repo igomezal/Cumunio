@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".fragmentFichajes">
+
+    <!-- TODO terminar el boton de añadir nuevo fichaje -->
+    <item android:id="@+id/action_aniadirFichaje"
+        android:title="@string/action_aniadirFichaje"
+        android:icon="@drawable/ic_nuevo"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom|withText" />
+</menu>
