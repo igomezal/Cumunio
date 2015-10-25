@@ -1,9 +1,10 @@
 package com.ps.comunio;
 
-import android.app.ListFragment;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,5 +27,31 @@ public class FragmentoEquipo extends ListFragment {
         // Required empty public constructor
     }
 
-    //quedan todos los metodos estos raros que no tengo ni idea de hacerlos.
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        // Inflate the layout for this fragment
+        View rootView = inflater.inflate(R.layout.fragment_equipo,container,false);
+        AdaptadorEquipo adapter = new AdaptadorEquipo(getActivity(),datos);
+        setListAdapter(adapter);
+
+        return rootView;
+    }
+
+
+    class AdaptadorEquipo extends ArrayAdapter<Equipo>{
+        public AdaptadorEquipo(Context context, Equipo[] datos){
+            super(context,R.layout.listitem_equipo,datos);
+        }
+        public View getView(int position, View convertView, ViewGroup parent){
+            LayoutInflater inflater = LayoutInflater.from(getContext());
+            View item = inflater.inflate(R.layout.listitem_equipo, null);
+
+            TextView Nombre = (TextView) item.findViewById(R.id.NombreEquipo);
+            Nombre.setText(datos[position].getNombre());
+
+            return item;
+        }
+    }
 }
