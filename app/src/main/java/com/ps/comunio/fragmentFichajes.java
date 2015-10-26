@@ -4,23 +4,16 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 
 public class fragmentFichajes extends ListFragment {
-
-    // Jugador de prueba para añadir
-    private Jugador jugadorPrueba = new Jugador("Hola", "No se", "Delantero", "11111111");
 
     private Jugador[] fichajes = {
             new Jugador("F - Keylor Navas","Real Madrid","Portero","7000000"),
@@ -36,25 +29,20 @@ public class fragmentFichajes extends ListFragment {
             new Jugador("F - Daniel Wass","Celta","Centrocampista","6540000"),
             new Jugador("F - Griezmann","Atlético de Madrid","Delantero","21560000")
     };
-    ArrayList <Jugador> fichajesMod = new ArrayList<>(Arrays.asList(fichajes));
-
-    // TODO seguir con el metodo añadir fichaje
-    // Cabecera que usaremos: (ArrayList<Jugador> fichajes, String nombre, String equipo, String posicion, String valor)
-    // Cabecera de prueba:
-    public ArrayList<Jugador> aniadirFichaje(Jugador nuevoFichaje){
-        //Jugador nuevoFichaje = new Jugador(nombre, equipo, posicion, valor);
-        fichajesMod.add(nuevoFichaje);
-
-        Toast added = Toast.makeText(getActivity(), "Añadido", Toast.LENGTH_SHORT);
-        added.show();
-
-        return fichajesMod;
-    }
+    private ArrayList <Jugador> fichajesMod = new ArrayList<>(Arrays.asList(fichajes));
 
     // TODO implementar el metodo borrar fichaje
 
     public fragmentFichajes() {
         // Required empty public constructor
+    }
+    
+    // TODO seguir con el metodo añadir fichaje
+    // Cabecera que usaremos: (ArrayList<Jugador> fichajes, String nombre, String equipo, String posicion, String valor)
+    // Cabecera de prueba:
+    public void aniadirFichaje(Jugador nuevoFichaje){
+        //Jugador nuevoFichaje = new Jugador(nombre, equipo, posicion, valor);
+        fichajesMod.add(nuevoFichaje);
     }
 
     @Override
@@ -63,41 +51,20 @@ public class fragmentFichajes extends ListFragment {
         setHasOptionsMenu(true);
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_fichajes, container, false);
+
         AdaptadorFichajes adapter = new AdaptadorFichajes(getActivity(), fichajesMod);
         setListAdapter(adapter);
 
         return rootView;
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        inflater.inflate(R.menu.menu_fichajes, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    // TODO implementar el click del boton (+)
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        // Manejamos el click del usuario al boton (+)
-        switch (item.getItemId()){
-            case R.id.action_aniadirFichaje:
-                aniadirFichaje(jugadorPrueba);
-                return true;
-            /*case R.id.action_settings:
-                return true;*/
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-
-    class AdaptadorFichajes extends ArrayAdapter<Jugador>{
+    public static class AdaptadorFichajes extends ArrayAdapter<Jugador>{
 
         ArrayList<Jugador> fichajesCopia;
         public AdaptadorFichajes(Context context, ArrayList<Jugador> fichajesMod){
@@ -111,12 +78,17 @@ public class fragmentFichajes extends ListFragment {
             TextView Nombre = (TextView)item.findViewById(R.id.NombreJugador);
             Nombre.setText(fichajesCopia.get(position).getNombre());
 
-            // TODO arreglarlo
-            //notifyDataSetChanged();
+            notifyDataSetChanged();
 
             return item;
         }
     }
 
+    public ArrayList<Jugador> getFichajesMod(){
+        return fichajesMod;
+    }
 
+    public void setFichajesMod(ArrayList<Jugador> fichajesMod){
+        this.fichajesMod = fichajesMod;
+    }
 }

@@ -5,6 +5,7 @@
     <string name="Username">Introduce tu usuario:</string>
     <string name="Contraseña">Introduce tu contraseña:</string>
     <string name="login">Log In</string>
+    <string name="fichar">Fichar Jugador</string>
     <string name="title_activity_logged_in">Comunio</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -21,4 +22,5 @@
     <string name="fragment1">Fragmento 1</string>
     <string name="menu">Menu</string>
     <string name="title_activity_datos_jugador">Datos Jugador</string>
+    <string name="title_activity_activity_prueba">activityPrueba</string>
 </resources>

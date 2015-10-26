@@ -37,4 +37,15 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="8dp"
         android:textSize="21sp"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/boton_fichar"
+        android:text="@string/fichar"
+        android:onClick="ficharJugador"
+        android:layout_below="@+id/textView6"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="8dp"
+        android:textSize="21sp"/>
 </RelativeLayout>

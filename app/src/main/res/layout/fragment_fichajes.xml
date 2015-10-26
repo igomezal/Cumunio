@@ -10,5 +10,4 @@
         android:layout_height="wrap_content"
         android:id="@android:id/list">
     </ListView>
-
 </FrameLayout>
