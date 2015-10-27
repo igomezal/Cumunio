@@ -5,9 +5,8 @@
     android:layout_height="match_parent">
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:src="@drawable/navheader"
-        android:scaleType="centerCrop"/>
+        android:layout_height="197dp"
+        android:src="@drawable/logo" />
     <TextView
         android:id="@+id/usuarioMenu"
         android:layout_width="wrap_content"
