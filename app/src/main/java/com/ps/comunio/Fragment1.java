@@ -31,7 +31,7 @@ public class Fragment1 extends ListFragment {
             new Jugador("Griezmann","Atlético de Madrid","Delantero","21560000",6.7),
             new Jugador("Westermann","Betis","Defensa","5190000",6.7),
             new Jugador("Jonathan Viera","Las Palmas","Centrocampista","7060000",6.7),
-            new Jugador("Norja Bastón","Eibar","Delantero","6800000",7.7),
+            new Jugador("Borja Bastón","Eibar","Delantero","6800000",7.7),
             new Jugador("Lora","Sporting","Defensa","4070000",8.8),
             new Jugador("Luis Suárez","Futbol Club Barcelona","Delantero","17690000",9.9),
             new Jugador("Augusto Fernández","Celta","Centrocampista","5640000",4.7),
