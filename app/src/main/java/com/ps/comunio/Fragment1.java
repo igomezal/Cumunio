@@ -53,8 +53,8 @@ public class Fragment1 extends ListFragment {
         builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                fichar(datos.get(identificador));
                 Toast.makeText(getActivity(),"Fichado "+datos.get(identificador).getNombre(),Toast.LENGTH_LONG).show();
+                fichar(datos.get(identificador));
                 datos = getJugadores();
                 adapter.notifyDataSetChanged();
             }
