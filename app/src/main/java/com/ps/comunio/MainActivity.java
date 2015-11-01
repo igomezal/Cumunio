@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    public final static String EXTRA_MESSAGE = "com.ps.comunio.MESSAGE";
+    //public final static String EXTRA_MESSAGE = "com.ps.comunio.MESSAGE";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
 
         if(strUsuario.equals("Pepito") && strPass.equals("0000")) {
             Intent intent = new Intent(this, Menuss.class);
-            intent.putExtra(EXTRA_MESSAGE, strUsuario);
+            //intent.putExtra(EXTRA_MESSAGE, strUsuario);
+            setNombre("Pepito");
             startActivity(intent);
         }else{
             Toast.makeText(this, "Usuario o contraseña incorrecta", Toast.LENGTH_LONG).show();
@@ -58,5 +59,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    public void setNombre(String nombre){
+        final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
+        globalVariable.setUsuario(nombre);
     }
 }

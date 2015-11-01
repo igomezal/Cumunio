@@ -10,6 +10,10 @@
             android:icon="@drawable/ronaldo"
             android:title="@string/listJugadores"/>
         <item
+            android:id="@+id/menu_miEquipo"
+            android:icon="@drawable/ronaldo"
+            android:title="Mi Equipo"/>
+        <item
             android:id="@+id/menu_equipo"
             android:icon="@drawable/alineacion"
             android:title="@string/listEquipos"/>

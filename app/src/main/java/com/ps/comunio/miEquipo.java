@@ -1,10 +1,8 @@
 package com.ps.comunio;
-import android.app.AlertDialog;
+import android.app.Application;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.text.Layout;
@@ -19,25 +17,32 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class Fragment1 extends ListFragment {
+public class miEquipo extends ListFragment {
 
-    private static ArrayList<Jugador> datos= new ArrayList<Jugador>();
+    private ArrayList<Jugador> datos= new ArrayList<Jugador>();
     AdaptadorJugador adapter;
 
-
-    public Fragment1() {
+    public miEquipo() {
         // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        datos = getJugadores();
+        datos = getMiEquipo();
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_fragment1,container,false);
         adapter = new AdaptadorJugador(getActivity(),datos);
         setListAdapter(adapter);
+
+        /*getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+                return true;
+            }
+        });*/
         return rootView;
     }
 
@@ -46,22 +51,7 @@ public class Fragment1 extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id){
         super.onListItemClick(l, v, position, id);
-        final int identificador = position;
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("Fichar");
-        builder.setMessage("¿Desea fichar a " + datos.get(position).getNombre() + " por " + datos.get(position).getValor() + "?");
-        builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                fichar(datos.get(identificador));
-                Toast.makeText(getActivity(),"Fichado "+datos.get(identificador).getNombre(),Toast.LENGTH_LONG).show();
-                datos = getJugadores();
-                adapter.notifyDataSetChanged();
-            }
-        });
-        builder.setNegativeButton("Cancel",null);
-        builder.create().show();
-        adapter.notifyDataSetChanged();
+
     }
 
 
@@ -84,12 +74,9 @@ public class Fragment1 extends ListFragment {
             return item;
         }
     }
-    public void fichar(Jugador player){
+    public ArrayList<Jugador> getMiEquipo(){
         final GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
-        globalVariable.ficharJugador(player);
-    }
-    public ArrayList<Jugador> getJugadores(){
-        GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
-        return globalVariable.getJugadoresDisponibles();
+
+        return globalVariable.getJugadoresFichados();
     }
 }
