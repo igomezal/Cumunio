@@ -23,7 +23,7 @@ public class Menuss extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
         final Intent logout = new Intent(this,MainActivity.class);
 
-        String usuario = ("Perfil de "+getIntent().getStringExtra(MainActivity.EXTRA_MESSAGE));
+        String usuario = ("Perfil de "+getGlobalUsuario());
         setTitle(usuario);
 
         appbar = (Toolbar)findViewById(R.id.appbar);
@@ -54,6 +54,10 @@ public class Menuss extends AppCompatActivity {
 
         //Cambiar fragmento por uno de bienvenida
         Fragment fragment = new fragmentInicio();
+
+        //final Fragment frJugadores = new Fragment1();
+        final Fragment frEquipo = new FragmentoEquipo();
+
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, fragment)
                 .commit();
@@ -72,11 +76,15 @@ public class Menuss extends AppCompatActivity {
                                 fragmentTransaction = true;
                                 break;
                             case R.id.menu_listJugadores:
-                                fragment = new Fragment1();
+                                fragment = new Fragment1();;
                                 fragmentTransaction = true;
                                 break;
+                            case R.id.menu_miEquipo:
+                                fragment = new miEquipo();
+                                fragmentTransaction=true;
+                                break;
                             case R.id.menu_equipo:
-                                fragment = new FragmentoEquipo();
+                                fragment = frEquipo;
                                 fragmentTransaction = true;
                                 break;
                             case R.id.logout:
@@ -92,7 +100,7 @@ public class Menuss extends AppCompatActivity {
                             if(menuItem.getItemId() != R.id.Inicio) {
                                 getSupportActionBar().setTitle(menuItem.getTitle());
                             }else {
-                                String usuario = ("Perfil de "+getIntent().getStringExtra(MainActivity.EXTRA_MESSAGE));
+                                String usuario = ("Perfil de "+getGlobalUsuario());
                                 getSupportActionBar().setTitle(usuario);
                             }
                         }
@@ -125,5 +133,10 @@ public class Menuss extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    public String getGlobalUsuario(){
+        final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
+        return globalVariable.getUsuario();
+    }
+
 }
 

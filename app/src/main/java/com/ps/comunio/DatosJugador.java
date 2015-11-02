@@ -7,9 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class DatosJugador extends AppCompatActivity {
-
+    Jugador jug;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,12 +22,20 @@ public class DatosJugador extends AppCompatActivity {
         TextView textPosicion = (TextView) findViewById(R.id.textView5);
         TextView textValor = (TextView) findViewById(R.id.textView6);
 
-        Jugador jug = (Jugador)getIntent().getExtras().getSerializable("dat");
+        jug = (Jugador)getIntent().getExtras().getSerializable("dat");
         setTitle(jug.getNombre());
         textEquipo.setText("Equipo: "+jug.getEquipo());
         textPosicion.setText("Posición: "+jug.getPosicion());
         textValor.setText("Valor: "+jug.getValor());
 
     }
+    public void fichar(View view){
+        Toast.makeText(this, "Fichado "+jug.getNombre(),Toast.LENGTH_LONG).show();
+        ficharGlobal(jug);
+    }
+    public void ficharGlobal(Jugador player){
+        GlobalClass globalVariable = (GlobalClass) getApplicationContext();
 
+        globalVariable.ficharJugador(player);
+    }
 }

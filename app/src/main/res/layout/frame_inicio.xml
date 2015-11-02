@@ -17,7 +17,7 @@
         android:layout_width="136dp"
         android:layout_height="94dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
+        android:text=""
         android:id="@+id/textView7"
         android:layout_gravity="center"
         android:layout_below="@+id/frameLayout"
