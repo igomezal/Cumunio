@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -64,12 +65,13 @@ public class miEquipo extends ListFragment {
         public View getView(int position, View convertView, ViewGroup parent){
             LayoutInflater inflater = LayoutInflater.from(getContext());
             View item = inflater.inflate(R.layout.listitem_jugador, null);
-
+            ImageView Imagen = (ImageView) item.findViewById(R.id.imageView);
             TextView Nombre = (TextView) item.findViewById(R.id.NombreJugador);
             TextView Equipo = (TextView) item.findViewById(R.id.tVEquipo);
             TextView Valoracion = (TextView) item.findViewById(R.id.tvValoracion);
             Nombre.setText(datos.get(position).getNombre());
             Equipo.setText(datos.get(position).getEquipo());
+            Imagen.setImageResource(datos.get(position).getImagen());
             Valoracion.setText(datos.get(position).getValoracion().toString());
             return item;
         }
