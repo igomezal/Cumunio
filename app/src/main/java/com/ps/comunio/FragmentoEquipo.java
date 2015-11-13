@@ -2,14 +2,13 @@ package com.ps.comunio;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -17,12 +16,13 @@ import android.widget.TextView;
  */
 public class FragmentoEquipo extends ListFragment {
     private Equipo[] datos={
-        new Equipo("Mantester Unido",150000000),
-        new Equipo("Real Mandril",180000000),
-        new Equipo("Cholsea",130000000),
-        new Equipo("Armético de Matriz",150000000),
-        new Equipo("Bayar de Manich",150000000),
+        new Equipo("Mantester Unido",150, R.drawable.manchester),
+        new Equipo("Real Mandril",180, R.drawable.madrid),
+        new Equipo("Cholsea",130, R.drawable.chelsea),
+        new Equipo("Armético de Matriz",150, R.drawable.atleti),
+        new Equipo("Bayar de Manich",150,R.drawable.munich),
     };
+
     public FragmentoEquipo() {
         // Required empty public constructor
     }
@@ -50,6 +50,12 @@ public class FragmentoEquipo extends ListFragment {
 
             TextView Nombre = (TextView) item.findViewById(R.id.NombreEquipo);
             Nombre.setText(datos[position].getNombre());
+
+            TextView Valor = (TextView) item.findViewById(R.id.EqValor);
+            Valor.setText("Valor: " + datos[position].getValor() + " millones.");
+
+            ImageView ImagenEquipo = (ImageView) item.findViewById(R.id.ImagenEquipo);
+            ImagenEquipo.setImageResource(datos[position].getEqImagen());
 
             return item;
         }

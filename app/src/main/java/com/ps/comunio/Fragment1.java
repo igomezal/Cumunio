@@ -2,16 +2,11 @@ package com.ps.comunio;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -81,7 +76,7 @@ public class Fragment1 extends ListFragment {
             TextView Valoracion = (TextView) item.findViewById(R.id.tvValoracion);
             Nombre.setText(datos.get(position).getNombre());
             Equipo.setText(datos.get(position).getEquipo());
-            Valoracion.setText(datos.get(position).getValoracion().toString());
+            Valoracion.setText("Valor: " + datos.get(position).getValoracion());
             Imagen.setImageResource(datos.get(position).getImagen());
             return item;
         }

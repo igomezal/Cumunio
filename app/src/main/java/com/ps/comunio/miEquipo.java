@@ -1,20 +1,14 @@
 package com.ps.comunio;
-import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -65,14 +59,17 @@ public class miEquipo extends ListFragment {
         public View getView(int position, View convertView, ViewGroup parent){
             LayoutInflater inflater = LayoutInflater.from(getContext());
             View item = inflater.inflate(R.layout.listitem_jugador, null);
+
             ImageView Imagen = (ImageView) item.findViewById(R.id.imageView);
             TextView Nombre = (TextView) item.findViewById(R.id.NombreJugador);
             TextView Equipo = (TextView) item.findViewById(R.id.tVEquipo);
             TextView Valoracion = (TextView) item.findViewById(R.id.tvValoracion);
+
             Nombre.setText(datos.get(position).getNombre());
             Equipo.setText(datos.get(position).getEquipo());
             Imagen.setImageResource(datos.get(position).getImagen());
-            Valoracion.setText(datos.get(position).getValoracion().toString());
+            Valoracion.setText("Valor:" + datos.get(position).getValoracion());
+
             return item;
         }
     }
