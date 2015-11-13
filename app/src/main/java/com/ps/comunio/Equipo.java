@@ -8,11 +8,13 @@ import java.util.ArrayList;
 public class Equipo {
     private String EqNombre;
     private int EqValor;
+    private int EqImagen;
     private ArrayList<Jugador> EqJugadores;
 
-    public Equipo (String name, int valor){
+    public Equipo (String name, int valor, int imagen){
         this.EqNombre=name;
         this.EqValor=valor;
+        this.EqImagen=imagen;
 
     }
 
@@ -20,5 +22,7 @@ public class Equipo {
     public void setNombre(String s){this.EqNombre=s;}
     public int getValor(){return this.EqValor;}
     public void setValor(int i){this.EqValor=i;}
+    public int getEqImagen(){return this.EqImagen;}
+    public void setEqImagen(int imagen){this.EqImagen = imagen;}
     public ArrayList<Jugador> getJugadores (){return this.EqJugadores;}
 }
