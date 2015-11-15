@@ -1,5 +1,7 @@
 package com.ps.comunio;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
@@ -9,22 +11,24 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class miEquipo extends ListFragment {
+public class miEquipoTitulares extends ListFragment {
 
     private ArrayList<Jugador> datos= new ArrayList<Jugador>();
     AdaptadorJugador adapter;
 
-    public miEquipo() {
-        // Required empty public constructor
+    public miEquipoTitulares() {
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         datos = getMiEquipo();
+
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_fragment1,container,false);
         adapter = new AdaptadorJugador(getActivity(),datos);
@@ -41,16 +45,31 @@ public class miEquipo extends ListFragment {
         return rootView;
     }
 
-
-
     @Override
     public void onListItemClick(ListView l, View v, int position, long id){
         super.onListItemClick(l, v, position, id);
-
+        final int identificador = position;
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Hacer Suplente");
+        builder.setMessage("¿Desea hacer suplente a " + datos.get(position).getNombre() + "?");
+        builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getActivity(), datos.get(identificador).getNombre() + " ahora es suplente. ", Toast.LENGTH_LONG).show();
+                hacerSuplente(datos.get(identificador));
+                datos = getMiEquipo();
+                adapter.notifyDataSetChanged();
+            }
+        });
+        builder.setNegativeButton("Cancel",null);
+        builder.create().show();
+        adapter.notifyDataSetChanged();
     }
 
-
-
+    public void hacerSuplente(Jugador player){
+        final GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
+        globalVariable.serSuplente(player);
+    }
 
     class AdaptadorJugador extends ArrayAdapter<Jugador>{
         public AdaptadorJugador(Context context, ArrayList<Jugador> datos){

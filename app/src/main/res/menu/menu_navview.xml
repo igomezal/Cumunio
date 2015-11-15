@@ -12,7 +12,11 @@
         <item
             android:id="@+id/menu_miEquipo"
             android:icon="@drawable/ic_miequipo"
-            android:title="Mi Equipo"/>
+            android:title="Titulares"/>
+        <item
+            android:id="@+id/menu_miEquipoSuplentes"
+            android:icon="@drawable/ic_miequipo"
+            android:title="Suplentes"/>
         <item
             android:id="@+id/menu_equipo"
             android:icon="@drawable/alineacion"
