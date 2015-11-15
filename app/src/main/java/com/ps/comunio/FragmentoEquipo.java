@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,6 +34,8 @@ public class FragmentoEquipo extends ListFragment {
 
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_equipo,container,false);
+        Button sald = (Button) rootView.findViewById(R.id.floating_button1);
+        sald.setText(getSald());
         AdaptadorEquipo adapter = new AdaptadorEquipo(getActivity(),datos);
         setListAdapter(adapter);
 
@@ -59,5 +62,9 @@ public class FragmentoEquipo extends ListFragment {
 
             return item;
         }
+    }
+    public String getSald(){
+        GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
+        return globalVariable.getSaldo();
     }
 }

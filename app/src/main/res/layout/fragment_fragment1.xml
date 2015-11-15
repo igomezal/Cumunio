@@ -16,6 +16,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="left|top"></TableRow>
-
+    <Button android:id="@+id/floating_button"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Floating"
+        android:drawableLeft="@drawable/ic_coins_s"
+        android:padding="5dp"
+        android:layout_margin="5dp"
+        android:layout_gravity="right|bottom"/>
 
 </FrameLayout>

@@ -6,5 +6,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@android:id/list"></ListView>
-
+    <Button android:id="@+id/floating_button1"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Floating"
+        android:drawableLeft="@drawable/ic_coins_s"
+        android:padding="5dp"
+        android:layout_margin="5dp"
+        android:layout_gravity="right|bottom"/>
 </FrameLayout>
