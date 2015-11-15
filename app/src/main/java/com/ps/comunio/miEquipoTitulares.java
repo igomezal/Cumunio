@@ -33,15 +33,6 @@ public class miEquipoTitulares extends ListFragment {
         View rootView = inflater.inflate(R.layout.fragment_fragment1,container,false);
         adapter = new AdaptadorJugador(getActivity(),datos);
         setListAdapter(adapter);
-
-        /*getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
-
-                return true;
-            }
-        });*/
         return rootView;
     }
 
