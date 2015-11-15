@@ -10,9 +10,10 @@ public class Equipo {
     private int EqValor;
     private ArrayList<Jugador> EqJugadores;
 
-    public Equipo (String name, int valor){
+    public Equipo (String name, int valor, ArrayList<Jugador> jugadores){
         this.EqNombre=name;
         this.EqValor=valor;
+        this.EqJugadores=jugadores;
 
     }
 

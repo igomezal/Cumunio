@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <TextView
+        android:layout_width="362dp"
+        android:layout_height="500dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="REGLAS:
+       - Inicialmente se tendra un dinero que se puede gastar en la compra de jugadores de mercado
+       - Cada jugador puede formar parte unicamente de un equipo
+       - Se puede poner a la venta un jugador de nuestro equipo
+       - La liga consistira en acumular punto segun lo que hagan los jugadores en sus partidos
+       - El primer jugador clasificado cada semana recivira 1000000 monedas
+       - El segundo jugador clasificado cada semana recivira 500000 monedas
+       - El tercer jugador clasificado cada semana recivira 250000 monedas
+       - Todos los jugadores obtendran 1000 monedas por cada punto que hagan sus jugadores
+       - Los goles sumaran 5 puntos
+       - Las asistencias sumaran 3 puntos
+       - La participacion del jugador sumara 1 punto
+       - La participacion como titular sumara 1 punto
+       - La roja descontara 3 puntos
+       - La amarilla descontara 1 punto
+       - Cada equipo puede tener un maximo de 22 jugadores y un minimo de 11
+       - La liga debera estar compuesta al menor por 4 equipos
+       - El mercado de fichajes se renovara cada semana
+       - El jugador mas rapido sera aquel que compre al jugador, siempre que tenga presupuesto
+       - No se podra tener un presupuesto negativo
+        "
+        android:id="@+id/textView9" />
+</LinearLayout>

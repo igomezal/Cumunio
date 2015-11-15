@@ -17,6 +17,9 @@
             android:id="@+id/menu_equipo"
             android:icon="@drawable/alineacion"
             android:title="@string/listEquipos"/>
+        <item
+            android:id="@+id/reglas"
+            android:title="Reglas"/>
     </group>
     <item
         android:id="@+id/navigation_subheader"

@@ -87,6 +87,10 @@ public class Menuss extends AppCompatActivity {
                                 fragment = frEquipo;
                                 fragmentTransaction = true;
                                 break;
+                            case R.id.reglas:
+                                fragment = new FragmentoReglas();
+                                fragmentTransaction = true;
+                                break;
                             case R.id.logout:
                                 startActivity(logout);
                         }
