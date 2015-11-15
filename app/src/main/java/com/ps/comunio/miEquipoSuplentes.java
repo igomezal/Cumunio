@@ -1,5 +1,8 @@
 package com.ps.comunio;
+
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
@@ -9,48 +12,58 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class miEquipo extends ListFragment {
+
+public class miEquipoSuplentes extends ListFragment {
 
     private ArrayList<Jugador> datos= new ArrayList<Jugador>();
     AdaptadorJugador adapter;
 
-    public miEquipo() {
-        // Required empty public constructor
+    public miEquipoSuplentes() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        datos = getMiEquipo();
+
+        datos = getSuplentes();
+
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_fragment1,container,false);
         adapter = new AdaptadorJugador(getActivity(),datos);
         setListAdapter(adapter);
 
-        /*getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
-
-                return true;
-            }
-        });*/
         return rootView;
     }
-
-
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id){
         super.onListItemClick(l, v, position, id);
-
+        final int identificador = position;
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Hacer Titular");
+        builder.setMessage("¿Desea hacer titular a " + datos.get(position).getNombre() + "?");
+        builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getActivity(),  datos.get(identificador).getNombre()+ " ahora es titular. ", Toast.LENGTH_LONG).show();
+                hacerTitular(datos.get(identificador));
+                datos = getSuplentes();
+                adapter.notifyDataSetChanged();
+            }
+        });
+        builder.setNegativeButton("Cancel",null);
+        builder.create().show();
+        adapter.notifyDataSetChanged();
     }
 
-
-
+    public void hacerTitular(Jugador player){
+        final GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
+        globalVariable.serTitular(player);
+    }
 
     class AdaptadorJugador extends ArrayAdapter<Jugador>{
         public AdaptadorJugador(Context context, ArrayList<Jugador> datos){
@@ -73,9 +86,10 @@ public class miEquipo extends ListFragment {
             return item;
         }
     }
-    public ArrayList<Jugador> getMiEquipo(){
+
+    public ArrayList<Jugador> getSuplentes(){
         final GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
 
-        return globalVariable.getJugadoresFichados();
+        return globalVariable.getJugadoresSuplentes();
     }
 }

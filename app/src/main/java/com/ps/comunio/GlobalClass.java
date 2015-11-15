@@ -11,14 +11,15 @@ public class GlobalClass extends Application {
     private String usuario = "";
     private ArrayList<Jugador> jugadoresDisponibles = new ArrayList<Jugador>();
     private ArrayList<Jugador> jugadoresFichados= new ArrayList<Jugador>();
+    private ArrayList<Jugador> jugadoresSuplentes= new ArrayList<Jugador>();
 
     @Override
     public void onCreate(){
         super.onCreate();
         jugadoresDisponibles.add(new Jugador("Keylor Navas", "Real Madrid", "Portero", "7000000", 0.1,R.drawable.navas));
-        jugadoresDisponibles.add(new Jugador("Lucas Perez","Deportivo","Centrocampista","11250000",0.2,R.drawable.lucas));
+        jugadoresDisponibles.add(new Jugador("Lucas Perez", "Deportivo", "Centrocampista", "11250000", 0.2, R.drawable.lucas));
         jugadoresDisponibles.add(new Jugador("Nolito", "Celta", "Delantero", "15320000", 23.2,R.drawable.nolito));
-        jugadoresDisponibles.add(new Jugador("Orellana","Celta","Centrocampista","14190000",21.2,R.drawable.orellana));
+        jugadoresDisponibles.add(new Jugador("Orellana", "Celta", "Centrocampista", "14190000", 21.2, R.drawable.orellana));
         jugadoresDisponibles.add(new Jugador("Iago Aspas","Celta","Delantero","11040000",23.1,R.drawable.aspas));
         jugadoresDisponibles.add(new Jugador("Cristiano Ronaldo","Real Madrid","Delantero","22910000",1.1,R.drawable.cristiano));
         jugadoresDisponibles.add(new Jugador("Benzema","Real Madrid","Delantero","14510000",1.4,R.drawable.benzema));
@@ -32,11 +33,9 @@ public class GlobalClass extends Application {
         jugadoresDisponibles.add(new Jugador("Borja Bastón","Eibar","Delantero","6800000",7.7,R.drawable.defecto));
         jugadoresDisponibles.add(new Jugador("Lora","Sporting","Defensa","4070000",8.8,R.drawable.defecto));
         jugadoresDisponibles.add(new Jugador("Luis Suárez","Futbol Club Barcelona","Delantero","17690000",9.9,R.drawable.suarez));
-        jugadoresDisponibles.add(new Jugador("Augusto Fernández","Celta","Centrocampista","5640000",4.7,R.drawable.augusto));
+        jugadoresDisponibles.add(new Jugador("Augusto Fernández", "Celta", "Centrocampista", "5640000", 4.7, R.drawable.augusto));
         jugadoresDisponibles.add(new Jugador("Sergi Roberto","Futbol Club Barcelona","Centrocampista","4420000",8.8,R.drawable.sergi));
-        jugadoresDisponibles.add(new Jugador("David Simón","Las Palmas","Defensa","3910000",9.9,R.drawable.simon));
-        jugadoresDisponibles.add(new Jugador("Aduriz","Athletic Bilbao","Delantero","12420000",5.5,R.drawable.aduriz));
-        jugadoresDisponibles.add(new Jugador("Rubén Castro","Betis","Delantero","9500000",9.9,R.drawable.castro));
+
     }
     public void setUsuario(String nombre){
         this.usuario=nombre;
@@ -47,8 +46,19 @@ public class GlobalClass extends Application {
     public ArrayList<Jugador> getJugadoresFichados(){
         return this.jugadoresFichados;
     }
+    public ArrayList<Jugador> getJugadoresSuplentes() {
+        return jugadoresSuplentes;
+    }
     public void ficharJugador(Jugador player){
         jugadoresDisponibles.remove(player);
+        jugadoresFichados.add(player);
+    }
+    public void serSuplente(Jugador player){
+        jugadoresFichados.remove(player);
+        jugadoresSuplentes.add(player);
+    }
+    public void serTitular(Jugador player){
+        jugadoresSuplentes.remove(player);
         jugadoresFichados.add(player);
     }
     public void venderJugador(Jugador player){
