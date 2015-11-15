@@ -12,6 +12,7 @@ public class GlobalClass extends Application {
     private ArrayList<Jugador> jugadoresDisponibles = new ArrayList<Jugador>();
     private ArrayList<Jugador> jugadoresFichados= new ArrayList<Jugador>();
     private ArrayList<Jugador> jugadoresSuplentes= new ArrayList<Jugador>();
+    private String saldo = "133000000";
 
     @Override
     public void onCreate(){
@@ -52,7 +53,13 @@ public class GlobalClass extends Application {
     public void ficharJugador(Jugador player){
         jugadoresDisponibles.remove(player);
         jugadoresFichados.add(player);
+        int a = Integer.parseInt(getSaldo());
+        int b = Integer.parseInt(player.getValor());
+        a = a - b;
+        setSaldo(Integer.toString(a));
     }
+    public String getSaldo(){return this.saldo;}
+    public void setSaldo(String saldo){this.saldo=saldo;}
     public void serSuplente(Jugador player){
         jugadoresFichados.remove(player);
         jugadoresSuplentes.add(player);
@@ -66,6 +73,11 @@ public class GlobalClass extends Application {
     }
     public ArrayList<Jugador> getJugadoresDisponibles(){
         return this.jugadoresDisponibles;
+    }
+    public boolean saldoSuficiente(Jugador player){
+        int a = Integer.parseInt(getSaldo());
+        int b = Integer.parseInt(player.getValor());
+        return ((a-b)>=0);
     }
 
 }

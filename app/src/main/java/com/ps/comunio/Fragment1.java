@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -19,7 +20,7 @@ public class Fragment1 extends ListFragment {
 
     private ArrayList<Jugador> datos= new ArrayList<Jugador>();
     AdaptadorJugador adapter;
-
+    View rootView;
 
     public Fragment1() {
         // Required empty public constructor
@@ -31,7 +32,9 @@ public class Fragment1 extends ListFragment {
 
         datos = getJugadores();
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_fragment1,container,false);
+        rootView = inflater.inflate(R.layout.fragment_fragment1,container,false);
+        Button sald = (Button) rootView.findViewById(R.id.floating_button);
+        sald.setText(getSald());
         adapter = new AdaptadorJugador(getActivity(),datos);
         setListAdapter(adapter);
         return rootView;
@@ -49,13 +52,19 @@ public class Fragment1 extends ListFragment {
         builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getActivity(),"Fichado "+datos.get(identificador).getNombre(),Toast.LENGTH_LONG).show();
-                fichar(datos.get(identificador));
-                datos = getJugadores();
+                if (puedoFichar(datos.get(identificador))) {
+                    Toast.makeText(getActivity(), "Fichado " + datos.get(identificador).getNombre(), Toast.LENGTH_LONG).show();
+                    fichar(datos.get(identificador));
+                    datos = getJugadores();
+                    Button sald = (Button) rootView.findViewById(R.id.floating_button);
+                    sald.setText(getSald());
+                } else {
+                    Toast.makeText(getActivity(), "No tienes saldo suficiente para fichar a " + datos.get(identificador).getNombre(), Toast.LENGTH_LONG).show();
+                }
                 adapter.notifyDataSetChanged();
             }
         });
-        builder.setNegativeButton("Cancel",null);
+        builder.setNegativeButton("No", null);
         builder.create().show();
         adapter.notifyDataSetChanged();
     }
@@ -88,5 +97,13 @@ public class Fragment1 extends ListFragment {
     public ArrayList<Jugador> getJugadores(){
         GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
         return globalVariable.getJugadoresDisponibles();
+    }
+    public String getSald(){
+        GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
+        return globalVariable.getSaldo();
+    }
+    public boolean puedoFichar(Jugador player){
+        GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
+        return globalVariable.saldoSuficiente(player);
     }
 }

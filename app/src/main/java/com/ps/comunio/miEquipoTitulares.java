@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -31,6 +32,8 @@ public class miEquipoTitulares extends ListFragment {
 
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_fragment1,container,false);
+        Button sald = (Button) rootView.findViewById(R.id.floating_button);
+        sald.setText(getSald());
         adapter = new AdaptadorJugador(getActivity(),datos);
         setListAdapter(adapter);
         return rootView;
@@ -52,7 +55,7 @@ public class miEquipoTitulares extends ListFragment {
                 adapter.notifyDataSetChanged();
             }
         });
-        builder.setNegativeButton("Cancel",null);
+        builder.setNegativeButton("No",null);
         builder.create().show();
         adapter.notifyDataSetChanged();
     }
@@ -87,5 +90,9 @@ public class miEquipoTitulares extends ListFragment {
         final GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
 
         return globalVariable.getJugadoresFichados();
+    }
+    public String getSald(){
+        GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
+        return globalVariable.getSaldo();
     }
 }
