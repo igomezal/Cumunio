@@ -76,6 +76,10 @@ public class Menuss extends AppCompatActivity {
                                 fragment =  new fragmentInicio();
                                 fragmentTransaction = true;
                                 break;
+                            case R.id.reglas:
+                                fragment = new FragmentoReglas();
+                                fragmentTransaction = true;
+                                break;
                             case R.id.menu_listJugadores:
                                 fragment = new Fragment1();
                                 fragmentTransaction = true;

@@ -11,11 +11,11 @@ public class Equipo {
     private int EqImagen;
     private ArrayList<Jugador> EqJugadores;
 
-    public Equipo (String name, int valor, int imagen){
+    public Equipo (String name, int valor, int imagen, ArrayList<Jugador> jugadores){
         this.EqNombre=name;
         this.EqValor=valor;
         this.EqImagen=imagen;
-
+        this.EqJugadores=jugadores;
     }
 
     public String getNombre(){return this.EqNombre;}

@@ -22,4 +22,5 @@
     <string name="fragment1">Fragmento 1</string>
     <string name="menu">Menu</string>
     <string name="title_activity_datos_jugador">Datos Jugador</string>
+    <string name="title_activity_datos_equipo">datosEquipo</string>
 </resources>
