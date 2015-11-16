@@ -39,6 +39,12 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Usuario o contraseña incorrecta", Toast.LENGTH_LONG).show();
         }
     }
+    public void logTest(View view){
+        Intent intent = new Intent(this, Menuss.class);
+        //intent.putExtra(EXTRA_MESSAGE, strUsuario);
+        setNombre("Pepito");
+        startActivity(intent);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

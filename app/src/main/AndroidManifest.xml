@@ -31,8 +31,8 @@
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
-            android:name=".datosEquipo"
-            android:label="@string/title_activity_datos_equipo"
+            android:name=".infoEquipo"
+            android:label="@string/title_activity_info_equipo"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
     </application>
