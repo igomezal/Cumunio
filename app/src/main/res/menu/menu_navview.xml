@@ -6,6 +6,10 @@
             android:icon="@drawable/casa"
             android:title="Inicio"/>
         <item
+            android:id="@+id/reglas"
+            android:icon="@drawable/ic_reglamento2"
+            android:title="Reglamento"/>
+        <item
             android:id="@+id/menu_listJugadores"
             android:icon="@drawable/ronaldo"
             android:title="@string/listJugadores"/>
