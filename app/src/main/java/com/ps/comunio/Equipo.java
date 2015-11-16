@@ -12,11 +12,12 @@ public class Equipo implements Comparable<Equipo> {
     private int puntos;
     private ArrayList<Jugador> EqJugadores;
 
-    public Equipo (String name, int valor, int imagen,int puntos){
+    public Equipo (String name, int valor, int imagen,int puntos,ArrayList<Jugador> EqJugadores){
         this.EqNombre=name;
         this.EqValor=valor;
         this.EqImagen=imagen;
         this.puntos=puntos;
+        this.EqJugadores = EqJugadores;
 
     }
 
