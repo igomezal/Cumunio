@@ -11,13 +11,19 @@ public class Jugador implements Serializable {
     private String Posicion;
     private String Valor;
     private Double Valoracion;
+    private Double ataque;
+    private Double defensa;
+    private Double ccampo;
     private int Imagen;
-    public Jugador(String Nombre,String Equipo,String Posicion,String Valor,Double Valoracion,int Imagen){
+    public Jugador(String Nombre,String Equipo,String Posicion,String Valor,Double ataque,Double defensa,Double ccampo,int Imagen){
         this.Nombre = Nombre;
         this.Equipo = Equipo;
         this.Posicion = Posicion;
         this.Valor = Valor;
-        this.Valoracion = Valoracion;
+        this.ataque=ataque;
+        this.defensa=defensa;
+        this.ccampo=ccampo;
+        this.Valoracion = (ataque+defensa+ccampo)/3;
         this.Imagen = Imagen;
     }
     public String getNombre(){

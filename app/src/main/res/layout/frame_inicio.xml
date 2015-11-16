@@ -10,24 +10,43 @@
         android:layout_height="match_parent"
         android:background="@drawable/ceped">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="135dp"
-        android:layout_gravity="left|top"
-        android:background="@drawable/logo"
-        android:id="@+id/frameLayout"></FrameLayout>
+        <RelativeLayout
+            android:layout_width="250dp"
+            android:layout_height="300dp"
+            android:layout_alignParentTop="true"
+            android:alpha="0.9"
+            android:background="#FFFFFF"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="20dp">
 
-    <TextView
-        android:layout_width="136dp"
-        android:layout_height="94dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text=""
-        android:id="@+id/textView7"
-        android:layout_gravity="center"
-        android:layout_below="@+id/frameLayout"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-</RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Noticias"
+                android:id="@+id/Noticias"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:background="#FFFF00"
+                android:autoText="false"
+                android:elegantTextHeight="false"
+                android:gravity="center" />
+
+            <ListView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/lvNoticias"
+                android:layout_below="@+id/Noticias"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+        </RelativeLayout>
+    </RelativeLayout>
     <Button android:id="@+id/floating_button2"
     android:layout_height="wrap_content"
     android:layout_width="wrap_content"

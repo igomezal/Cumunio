@@ -40,6 +40,15 @@
             android:layout_centerInParent="true"
             android:textSize="17sp"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Medium Text"
+            android:id="@+id/tvPtos"
+            android:layout_below="@+id/EqValor"
+            android:layout_alignLeft="@+id/EqValor"
+            android:layout_alignStart="@+id/EqValor" />
 
 
     </RelativeLayout>

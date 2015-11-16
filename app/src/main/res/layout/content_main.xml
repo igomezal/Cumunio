@@ -36,12 +36,9 @@
         android:text="@string/login"
         android:id="@+id/button"
         android:onClick="sendMessage"
+        android:layout_marginTop="81dp"
         android:layout_below="@+id/editText2"
-        android:layout_alignLeft="@+id/editText2"
-        android:layout_alignStart="@+id/editText2"
-        android:layout_marginTop="78dp"
-        android:layout_alignRight="@+id/textView2"
-        android:layout_alignEnd="@+id/textView2" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -70,4 +67,13 @@
         android:layout_above="@+id/textView"
         android:layout_alignRight="@+id/username"
         android:layout_alignEnd="@+id/username" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LogTest"
+        android:onClick="logTest"
+        android:id="@+id/button3"
+        android:layout_below="@+id/button"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
