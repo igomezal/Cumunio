@@ -10,7 +10,7 @@ import android.widget.Button;
 
 public class FragmentoReglas extends Fragment {
     public FragmentoReglas() {
-        // Required empty public constructor
+        // Required empty public constructora
     }
 
     @Override
