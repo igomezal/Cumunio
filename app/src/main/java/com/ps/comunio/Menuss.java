@@ -154,8 +154,5 @@ public class Menuss extends AppCompatActivity {
         final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
         return globalVariable.getUsuario();
     }
-
-
-
 }
 

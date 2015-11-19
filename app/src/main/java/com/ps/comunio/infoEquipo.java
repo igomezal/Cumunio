@@ -87,5 +87,4 @@ public class infoEquipo extends AppCompatActivity {
         GlobalClass globalVariable = (GlobalClass) getApplicationContext();
         return globalVariable.getSaldo();
     }
-
 }
