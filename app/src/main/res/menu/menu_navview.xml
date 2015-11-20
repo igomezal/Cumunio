@@ -16,11 +16,7 @@
         <item
             android:id="@+id/menu_miEquipo"
             android:icon="@drawable/ic_miequipo"
-            android:title="Titulares"/>
-        <item
-            android:id="@+id/menu_miEquipoSuplentes"
-            android:icon="@drawable/ic_miequipo"
-            android:title="Suplentes"/>
+            android:title="Mi Equipo"/>
         <item
             android:id="@+id/menu_equipo"
             android:icon="@drawable/alineacion"
