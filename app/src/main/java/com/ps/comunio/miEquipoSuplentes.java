@@ -21,7 +21,9 @@ import java.util.ArrayList;
 public class miEquipoSuplentes extends ListFragment {
 
     private ArrayList<Jugador> datos= new ArrayList<Jugador>();
-    AdaptadorJugador adapter;
+    private AdaptadorJugador adapter;
+    private View rootView;
+
 
     public miEquipoSuplentes() {
     }
@@ -33,7 +35,7 @@ public class miEquipoSuplentes extends ListFragment {
         datos = getSuplentes();
 
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_fragment1,container,false);
+        rootView = inflater.inflate(R.layout.fragment_fragment1,container,false);
         Button sald = (Button) rootView.findViewById(R.id.floating_button);
         sald.setText(getSald());
         adapter = new AdaptadorJugador(getActivity(),datos);
@@ -46,21 +48,63 @@ public class miEquipoSuplentes extends ListFragment {
     public void onListItemClick(ListView l, View v, int position, long id){
         super.onListItemClick(l, v, position, id);
         final int identificador = position;
+        final String[] items = {"Vender","Hacer Titular"};
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("Hacer Titular");
-        builder.setMessage("¿Desea hacer titular a " + datos.get(position).getNombre() + "?");
-        builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+
+        builder.setTitle("Gestión de jugador").setItems(items, new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getActivity(),  datos.get(identificador).getNombre()+ " ahora es titular. ", Toast.LENGTH_LONG).show();
-                hacerTitular(datos.get(identificador));
-                datos = getSuplentes();
-                adapter.notifyDataSetChanged();
+            public void onClick(DialogInterface dialog, int item) {
+                switch (item) {
+                    case 0:
+                        //Metodo vender
+                        double c = Integer.parseInt(datos.get(identificador).getValor()) * 0.95;
+                        int valorV = (int) c;
+                        AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
+                        builder1.setTitle("Vender Jugador");
+                        builder1.setMessage("¿Desea vender el jugador " + datos.get(identificador).getNombre() + " por " + valorV + "?");
+                        builder1.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(getActivity(), "Ha vendido a " + datos.get(identificador).getNombre() + ".", Toast.LENGTH_LONG).show();
+                                vender(datos.get(identificador));
+                                datos = getSuplentes();
+                                Button sald = (Button) rootView.findViewById(R.id.floating_button);
+                                sald.setText(getSald());
+                                adapter.notifyDataSetChanged();
+                            }
+                        });
+                        builder1.setNegativeButton("No", null);
+                        builder1.create().show();
+                        adapter.notifyDataSetChanged();
+                        break;
+                    case 1:
+                        //Metodo Suplente
+                        AlertDialog.Builder builder2 = new AlertDialog.Builder(getContext());
+                        builder2.setTitle("Hacer Titular");
+                        builder2.setMessage("¿Desea hacer titular a " + datos.get(identificador).getNombre() + "?");
+                        builder2.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(getActivity(), datos.get(identificador).getNombre() + " ahora es titular. ", Toast.LENGTH_LONG).show();
+                                hacerTitular(datos.get(identificador));
+                                datos = getSuplentes();
+                                adapter.notifyDataSetChanged();
+                            }
+                        });
+                        builder2.setNegativeButton("No", null);
+                        builder2.create().show();
+                        adapter.notifyDataSetChanged();
+                        break;
+                }
             }
         });
-        builder.setNegativeButton("No",null);
         builder.create().show();
         adapter.notifyDataSetChanged();
+    }
+
+    public void vender(Jugador player){
+        final GlobalClass globalVariable = (GlobalClass) getActivity().getApplication();
+        globalVariable.venderJugadorSuplente(player);
     }
 
     public void hacerTitular(Jugador player){
