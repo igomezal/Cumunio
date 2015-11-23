@@ -78,7 +78,7 @@ public class infoEquipo extends AppCompatActivity {
             TextView Valoracion = (TextView) item.findViewById(R.id.tvValoracion);
             Nombre.setText(datos2.get(position).getNombre());
             Equipo.setText(datos2.get(position).getEquipo());
-            Valoracion.setText(datos2.get(position).getValoracion().toString());
+            Valoracion.setText(datos2.get(position).getValoracion());
             Imagen.setImageResource(datos2.get(position).getImagen());
             return item;
         }
