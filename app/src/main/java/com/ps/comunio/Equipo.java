@@ -12,9 +12,9 @@ public class Equipo implements Comparable<Equipo> {
     private int puntos;
     private ArrayList<Jugador> EqJugadores;
 
-    public Equipo (String name, int valor, int imagen,int puntos,ArrayList<Jugador> EqJugadores){
+    public Equipo (String name, int imagen,int puntos,ArrayList<Jugador> EqJugadores){
         this.EqNombre=name;
-        this.EqValor=valor;
+        this.EqValor=0;
         this.EqImagen=imagen;
         this.puntos=puntos;
         this.EqJugadores = EqJugadores;
@@ -37,5 +37,11 @@ public class Equipo implements Comparable<Equipo> {
         if(this.puntos>another.puntos)
             return -1;
         return 0;
+    }
+
+    public void actualizaPuntos (){
+        for (int i=0; i<this.EqJugadores.size();i++){
+            this.EqValor += this.EqJugadores.get(i).getValoracion();
+        }
     }
 }
