@@ -1,6 +1,7 @@
 package com.ps.comunio;
 
 import android.content.Context;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,7 +12,17 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+
+import java.net.HttpURLConnection;
 import java.util.ArrayList;
+import java.util.List;
+
+import cz.msebera.android.httpclient.Header;
 
 
 public class fragmentInicio extends Fragment {
@@ -19,6 +30,8 @@ public class fragmentInicio extends Fragment {
     private ListView lvNoticias;
     private ArrayList<Noticia> datos= new ArrayList<Noticia>();
     AdaptadorNoticias adapter;
+    HttpURLConnection con;
+
     public fragmentInicio() {
         // Required empty public constructor
     }
@@ -31,10 +44,12 @@ public class fragmentInicio extends Fragment {
         View rootView = inflater.inflate(R.layout.frame_inicio, container, false);
         Button sald = (Button) rootView.findViewById(R.id.floating_button2);
         sald.setText(getSald());
-        datos = getNoticias();
+        //datos = getNoticias();
         lvNoticias = (ListView)rootView.findViewById(R.id.lvNoticias);
-        adapter = new AdaptadorNoticias(getActivity(),datos);
-        lvNoticias.setAdapter(adapter);
+        //adapter = new AdaptadorNoticias(getActivity(),datos);
+        //lvNoticias.setAdapter(adapter);
+        obtNoticias();
+
         return rootView;
     }
 
@@ -42,8 +57,9 @@ public class fragmentInicio extends Fragment {
         GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
         return globalVariable.getSaldo();
     }
+
     class AdaptadorNoticias extends ArrayAdapter<Noticia> {
-        public AdaptadorNoticias(Context context, ArrayList<Noticia> datos){
+        public AdaptadorNoticias(Context context, List<Noticia> datos){
             super(context,R.layout.listitem_noticia,datos);
         }
         public View getView(int position, View convertView, ViewGroup parent){
@@ -61,6 +77,50 @@ public class fragmentInicio extends Fragment {
     public ArrayList<Noticia> getNoticias(){
         GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
         return globalVariable.getNoticias();
+    }
+
+    public void obtNoticias(){
+        AsyncHttpClient client = new AsyncHttpClient();
+        String url="http://tefox.esy.es/noticias.php";
+
+        RequestParams parametros = new RequestParams();
+
+
+        client.post(url, parametros, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if(statusCode==200){
+                    obtNoticiaJSON(new String(responseBody));
+                    CargaLista();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+        });
+    }
+    public void obtNoticiaJSON(String response){
+        try{
+            JSONArray jsonArray = new JSONArray(response);
+            String titulo;
+            String cuerpo;
+            String fecha;
+            for(int i=0;i<jsonArray.length();i++){
+                titulo = jsonArray.getJSONObject(i).getString("titulo");
+                cuerpo = jsonArray.getJSONObject(i).getString("cuerpo");
+                fecha = jsonArray.getJSONObject(i).getString("fecha");
+                datos.add(new Noticia(titulo,cuerpo,fecha));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void CargaLista(){
+        adapter = new AdaptadorNoticias(getActivity(),datos);
+        lvNoticias.setAdapter(adapter);
     }
 }
 
