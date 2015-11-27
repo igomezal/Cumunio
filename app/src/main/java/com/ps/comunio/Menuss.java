@@ -63,10 +63,6 @@ public class Menuss extends AppCompatActivity {
         //Cambiar fragmento por uno de bienvenida
         Fragment fragment = new fragmentInicio();
 
-
-        //final Fragment frJugadores = new Fragment1();
-        final Fragment frEquipo = new FragmentoEquipo();
-
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, fragment)
                 .commit();
@@ -93,15 +89,11 @@ public class Menuss extends AppCompatActivity {
                                 fragmentTransaction = true;
                                 break;
                             case R.id.menu_miEquipo:
-                                fragment = new miEquipoTitulares();
-                                fragmentTransaction=true;
-                                break;
-                            case R.id.menu_miEquipoSuplentes:
-                                fragment = new miEquipoSuplentes();
+                                fragment = new miEquipo();
                                 fragmentTransaction=true;
                                 break;
                             case R.id.menu_equipo:
-                                fragment = frEquipo;
+                                fragment = new FragmentoEquipo();
                                 fragmentTransaction = true;
                                 break;
                             case R.id.logout:

@@ -141,9 +141,28 @@ public class GlobalClass extends Application {
         jugadoresSuplentes.remove(player);
         jugadoresFichados.add(player);
     }
-    public void venderJugador(Jugador player){
+    public void venderJugadorTitular(Jugador player){
         jugadoresFichados.remove(player);
+        jugadoresDisponibles.add(player);
+        int a = Integer.parseInt(getSaldo());
+        int b = Integer.parseInt(player.getValor());
+        double c = b * 0.95;
+        b = (int) c;
+        a = a + b;
+        setSaldo(Integer.toString(a));
     }
+
+    public void venderJugadorSuplente(Jugador player){
+        jugadoresSuplentes.remove(player);
+        jugadoresDisponibles.add(player);
+        int a = Integer.parseInt(getSaldo());
+        int b = Integer.parseInt(player.getValor());
+        double c = b * 0.95;
+        b = (int) c;
+        a = a + b;
+        setSaldo(Integer.toString(a));
+    }
+
     public ArrayList<Jugador> getJugadoresDisponibles(){
         return this.jugadoresDisponibles;
     }
