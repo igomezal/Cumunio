@@ -14,7 +14,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+
 import java.util.ArrayList;
+
+import cz.msebera.android.httpclient.Header;
 
 public class Fragment1 extends ListFragment {
 
@@ -30,13 +38,11 @@ public class Fragment1 extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        datos = getJugadores();
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_fragment1,container,false);
         Button sald = (Button) rootView.findViewById(R.id.floating_button);
         sald.setText(getSald());
-        adapter = new AdaptadorJugador(getActivity(),datos);
-        setListAdapter(adapter);
+        obtJugadores();
         return rootView;
     }
 
@@ -54,8 +60,11 @@ public class Fragment1 extends ListFragment {
             public void onClick(DialogInterface dialog, int which) {
                 if (puedoFichar(datos.get(identificador))) {
                     Toast.makeText(getActivity(), "Fichado " + datos.get(identificador).getNombre(), Toast.LENGTH_LONG).show();
+
                     fichar(datos.get(identificador));
-                    datos = getJugadores();
+                    obtJugadores();
+
+                    //Obtener el valor de la base de datos
                     Button sald = (Button) rootView.findViewById(R.id.floating_button);
                     sald.setText(getSald());
                 } else {
@@ -91,13 +100,27 @@ public class Fragment1 extends ListFragment {
         }
     }
     public void fichar(Jugador player){
-        final GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
-        globalVariable.ficharJugador(player);
+        AsyncHttpClient client = new AsyncHttpClient();
+        String url = "http://tefox.esy.es/fichar.php";
+        RequestParams parametros = new RequestParams();
+
+        //Obtener valor del login
+        parametros.put("user","\"Pepito\"");
+        parametros.put("nombre","\""+player.getNombre()+"\"");
+
+        client.post(url, parametros, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+        });
     }
-    public ArrayList<Jugador> getJugadores(){
-        GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
-        return globalVariable.getJugadoresDisponibles();
-    }
+
     public String getSald(){
         GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
         return globalVariable.getSaldo();
@@ -105,5 +128,58 @@ public class Fragment1 extends ListFragment {
     public boolean puedoFichar(Jugador player){
         GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
         return globalVariable.saldoSuficiente(player);
+    }
+
+    public void obtJugadores(){
+        AsyncHttpClient client = new AsyncHttpClient();
+        String url="http://tefox.esy.es/jugador.php";
+
+        RequestParams parametros = new RequestParams();
+        parametros.put("dueño","\"Nadie\"");
+        parametros.put("titular","\"Suplente\"");
+
+        client.post(url, parametros, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if(statusCode==200){
+                    obtJugadoresJSON(new String(responseBody));
+                    CargaLista();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+        });
+    }
+    public void obtJugadoresJSON(String response){
+        datos.clear();
+        try{
+            JSONArray jsonArray = new JSONArray(response);
+            String nombre,equipo,pos,valor;
+            int puntos,imagen;
+
+            for(int i=0;i<jsonArray.length();i++){
+                nombre = jsonArray.getJSONObject(i).getString("Nombre");
+                equipo = jsonArray.getJSONObject(i).getString("equipo");
+                pos = jsonArray.getJSONObject(i).getString("Posicion");
+                valor = jsonArray.getJSONObject(i).getString("Coste");
+                puntos = jsonArray.getJSONObject(i).getInt("Puntos");
+                imagen = convertirRutaEnId(jsonArray.getJSONObject(i).getString("Imagen"));
+                datos.add(new Jugador(nombre,equipo,pos,valor,puntos,imagen));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    private int convertirRutaEnId(String nombre){
+        Context context = getActivity().getBaseContext();
+        return context.getResources().getIdentifier(nombre,"drawable",context.getPackageName());
+    }
+
+    public void CargaLista(){
+        adapter = new AdaptadorJugador(getActivity(),datos);
+        setListAdapter(adapter);
     }
 }

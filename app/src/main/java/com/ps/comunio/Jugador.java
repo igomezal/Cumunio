@@ -12,12 +12,12 @@ public class Jugador implements Serializable {
     private String Valor;
     private int Valoracion;
     private int Imagen;
-    public Jugador(String Nombre,String Equipo,String Posicion,String Valor,int Imagen){
+    public Jugador(String Nombre,String Equipo,String Posicion,String Valor,int puntos,int Imagen){
         this.Nombre = Nombre;
         this.Equipo = Equipo;
         this.Posicion = Posicion;
         this.Valor = Valor;
-        this.Valoracion = 0;
+        this.Valoracion = puntos;
         this.Imagen = Imagen;
     }
     public String getNombre(){

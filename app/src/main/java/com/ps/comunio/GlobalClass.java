@@ -35,7 +35,7 @@ public class GlobalClass extends Application {
         equipos.add(new Equipo("Cholsea", R.drawable.chelsea,5,CH));
         equipos.add(new Equipo("Mantester Unido", R.drawable.manchester,3,AMU));
         equipos.add(new Equipo("Real Mandril", R.drawable.madrid,2,RM));
-        jugadoresDisponibles.add(new Jugador("Keylor Navas", "Real Madrid", "Portero", "7000000",R.drawable.navas));
+        /*jugadoresDisponibles.add(new Jugador("Keylor Navas", "Real Madrid", "Portero", "7000000",R.drawable.navas));
         jugadoresDisponibles.add(new Jugador("Lucas Perez","Deportivo","Centrocampista","11250000",R.drawable.lucas));
         jugadoresDisponibles.add(new Jugador("Nolito", "Celta", "Delantero", "15320000",R.drawable.nolito));
         jugadoresDisponibles.add(new Jugador("Orellana","Celta","Centrocampista","14190000",R.drawable.orellana));
@@ -109,7 +109,7 @@ public class GlobalClass extends Application {
         BM.add(new Jugador("Boateng","Atl.Madrid","Defensa","3000000",R.drawable.defecto));
         BM.add(new Jugador("Lahm","Real Madrid","Defensa","7000000",R.drawable.defecto));
         BM.add(new Jugador("Benatia","Valencia","Defensa","5000000",R.drawable.defecto));
-        BM.add(new Jugador("Bernat","Atl.Madrid","Defensa","6000000",R.drawable.defecto));
+        BM.add(new Jugador("Bernat","Atl.Madrid","Defensa","6000000",R.drawable.defecto));*/
 
     }
     public void setUsuario(String nombre){
@@ -121,36 +121,11 @@ public class GlobalClass extends Application {
     public ArrayList<Jugador> getJugadoresFichados(){
         return this.jugadoresFichados;
     }
-    public ArrayList<Jugador> getJugadoresSuplentes() {
-        return jugadoresSuplentes;
-    }
-    public void ficharJugador(Jugador player){
-        jugadoresDisponibles.remove(player);
-        jugadoresFichados.add(player);
-        int a = Integer.parseInt(getSaldo());
-        int b = Integer.parseInt(player.getValor());
-        a = a - b;
-        setSaldo(Integer.toString(a));
-    }
+
+
     public String getSaldo(){return this.saldo;}
     public void setSaldo(String saldo){this.saldo=saldo;}
-    public void serSuplente(Jugador player){
-        jugadoresFichados.remove(player);
-        jugadoresSuplentes.add(player);
-    }
-    public void serTitular(Jugador player){
-        jugadoresSuplentes.remove(player);
-        jugadoresFichados.add(player);
-    }
-    public void venderJugador(Jugador player){
-        jugadoresFichados.remove(player);
-    }
-    public ArrayList<Jugador> getJugadoresDisponibles(){
-        return this.jugadoresDisponibles;
-    }
-    public ArrayList<Noticia>getNoticias(){
-        return this.noticias;
-    }
+
     public ArrayList<Equipo>getEquipos(){return  this.equipos;}
     public boolean saldoSuficiente(Jugador player){
         int a = Integer.parseInt(getSaldo());

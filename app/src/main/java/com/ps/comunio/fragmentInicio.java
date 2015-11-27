@@ -44,10 +44,9 @@ public class fragmentInicio extends Fragment {
         View rootView = inflater.inflate(R.layout.frame_inicio, container, false);
         Button sald = (Button) rootView.findViewById(R.id.floating_button2);
         sald.setText(getSald());
-        //datos = getNoticias();
+
         lvNoticias = (ListView)rootView.findViewById(R.id.lvNoticias);
-        //adapter = new AdaptadorNoticias(getActivity(),datos);
-        //lvNoticias.setAdapter(adapter);
+
         obtNoticias();
 
         return rootView;
@@ -73,10 +72,6 @@ public class fragmentInicio extends Fragment {
             contenido.setText(datos.get(position).getCuerpo());
             return item;
         }
-    }
-    public ArrayList<Noticia> getNoticias(){
-        GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
-        return globalVariable.getNoticias();
     }
 
     public void obtNoticias(){

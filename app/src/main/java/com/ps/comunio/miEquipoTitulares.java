@@ -14,12 +14,22 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+
 import java.util.ArrayList;
+
+import cz.msebera.android.httpclient.Header;
 
 public class miEquipoTitulares extends ListFragment {
 
     private ArrayList<Jugador> datos= new ArrayList<Jugador>();
     AdaptadorJugador adapter;
+    private View rootView;
+    private String user;
 
     public miEquipoTitulares() {
 
@@ -28,14 +38,13 @@ public class miEquipoTitulares extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        datos = getMiEquipo();
 
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_fragment1,container,false);
+        rootView = inflater.inflate(R.layout.fragment_fragment1,container,false);
         Button sald = (Button) rootView.findViewById(R.id.floating_button);
         sald.setText(getSald());
-        adapter = new AdaptadorJugador(getActivity(),datos);
-        setListAdapter(adapter);
+        user = getGlobalUsuario();
+        obtJugadores();
         return rootView;
     }
 
@@ -43,26 +52,97 @@ public class miEquipoTitulares extends ListFragment {
     public void onListItemClick(ListView l, View v, int position, long id){
         super.onListItemClick(l, v, position, id);
         final int identificador = position;
+        final String[] items = {"Vender","Hacer Suplente"};
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("Hacer Suplente");
-        builder.setMessage("¿Desea hacer suplente a " + datos.get(position).getNombre() + "?");
-        builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+
+        builder.setTitle("Gestión de jugador").setItems(items, new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getActivity(), datos.get(identificador).getNombre() + " ahora es suplente. ", Toast.LENGTH_LONG).show();
-                hacerSuplente(datos.get(identificador));
-                datos = getMiEquipo();
-                adapter.notifyDataSetChanged();
+            public void onClick(DialogInterface dialog, int item) {
+                switch (item) {
+                    case 0:
+                        AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
+                        builder1.setTitle("Vender Jugador");
+                        builder1.setMessage("¿Desea vender el jugador " + datos.get(identificador).getNombre() + " por " + datos.get(identificador).getValor());
+                        builder1.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(getActivity(), "Ha vendido a " + datos.get(identificador).getNombre() + ".", Toast.LENGTH_LONG).show();
+                                vender(datos.get(identificador));
+                                obtJugadores();
+                                Button sald = (Button) rootView.findViewById(R.id.floating_button);
+                                sald.setText(getSald());
+                                adapter.notifyDataSetChanged();
+                            }
+                        });
+                        builder1.setNegativeButton("No", null);
+                        builder1.create().show();
+                        adapter.notifyDataSetChanged();
+                        break;
+                    case 1:
+                        AlertDialog.Builder builder2 = new AlertDialog.Builder(getContext());
+                        builder2.setTitle("Hacer Suplente");
+                        builder2.setMessage("¿Desea hacer suplente a " + datos.get(identificador).getNombre() + "?");
+                        builder2.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(getActivity(), datos.get(identificador).getNombre() + " ahora es suplente.", Toast.LENGTH_LONG).show();
+                                hacerSuplente(datos.get(identificador));
+                                obtJugadores();
+                                adapter.notifyDataSetChanged();
+                            }
+                        });
+                        builder2.setNegativeButton("No", null);
+                        builder2.create().show();
+                        adapter.notifyDataSetChanged();
+                        break;
+                }
+
             }
         });
-        builder.setNegativeButton("No",null);
         builder.create().show();
         adapter.notifyDataSetChanged();
     }
 
+    public void vender(Jugador player){
+        AsyncHttpClient client = new AsyncHttpClient();
+        String url = "http://tefox.esy.es/fichar.php";
+        RequestParams parametros = new RequestParams();
+
+        parametros.put("user", "\"Nadie\"");
+        parametros.put("nombre", "\"" + player.getNombre() + "\"");
+
+        client.post(url, parametros, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+        });
+    }
+
     public void hacerSuplente(Jugador player){
-        final GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
-        globalVariable.serSuplente(player);
+        AsyncHttpClient client = new AsyncHttpClient();
+        String url = "http://tefox.esy.es/titular.php";
+        RequestParams parametros = new RequestParams();
+
+        parametros.put("titular", "\"Suplente\"");
+        parametros.put("nombre", "\"" + player.getNombre() + "\"");
+
+        client.post(url, parametros, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+        });
     }
 
     class AdaptadorJugador extends ArrayAdapter<Jugador>{
@@ -94,5 +174,65 @@ public class miEquipoTitulares extends ListFragment {
     public String getSald(){
         GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
         return globalVariable.getSaldo();
+    }
+
+    public void obtJugadores(){
+        AsyncHttpClient client = new AsyncHttpClient();
+        String url="http://tefox.esy.es/jugador.php";
+
+        RequestParams parametros = new RequestParams();
+
+        //Sustituir por el usuario
+        parametros.put("dueño", "\""+user+"\"");
+        parametros.put("titular", "\"Titular\"");
+
+        client.post(url, parametros, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (statusCode == 200) {
+                    obtJugadoresJSON(new String(responseBody));
+                    CargaLista();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+        });
+    }
+    public void obtJugadoresJSON(String response){
+        datos.clear();
+        try{
+            JSONArray jsonArray = new JSONArray(response);
+            String nombre,equipo,pos,valor;
+            int puntos,imagen;
+
+            for(int i=0;i<jsonArray.length();i++){
+                nombre = jsonArray.getJSONObject(i).getString("Nombre");
+                equipo = jsonArray.getJSONObject(i).getString("equipo");
+                pos = jsonArray.getJSONObject(i).getString("Posicion");
+                valor = jsonArray.getJSONObject(i).getString("Coste");
+                puntos = jsonArray.getJSONObject(i).getInt("Puntos");
+                imagen = convertirRutaEnId(jsonArray.getJSONObject(i).getString("Imagen"));
+                datos.add(new Jugador(nombre,equipo,pos,valor,puntos,imagen));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    private int convertirRutaEnId(String nombre){
+        Context context = getActivity().getBaseContext();
+        return context.getResources().getIdentifier(nombre, "drawable", context.getPackageName());
+    }
+
+    public void CargaLista(){
+        adapter = new AdaptadorJugador(getActivity(),datos);
+        setListAdapter(adapter);
+    }
+
+    public String getGlobalUsuario(){
+        final GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
+        return globalVariable.getUsuario();
     }
 }
