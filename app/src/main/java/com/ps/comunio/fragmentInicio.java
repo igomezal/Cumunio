@@ -49,12 +49,15 @@ public class fragmentInicio extends Fragment {
         public View getView(int position, View convertView, ViewGroup parent){
             LayoutInflater inflater = LayoutInflater.from(getContext());
             View item = inflater.inflate(R.layout.listitem_noticia, null);
+
             TextView cabecera = (TextView) item.findViewById(R.id.tvCabecera);
             TextView fecha = (TextView) item.findViewById(R.id.tvFecha);
             TextView contenido = (TextView) item.findViewById(R.id.tvContenido);
+
             cabecera.setText(datos.get(position).getTitular());
             fecha.setText(datos.get(position).getFecha());
             contenido.setText(datos.get(position).getCuerpo());
+
             return item;
         }
     }

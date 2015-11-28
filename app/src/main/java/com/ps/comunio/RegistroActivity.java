@@ -42,7 +42,7 @@ public class RegistroActivity extends AppCompatActivity {
         String strFechaNacimiento = fechaNacimientoEdit.getText().toString();
 
         if((strUsuario != null && !strUsuario.isEmpty()) && (strPass != null && !strPass.isEmpty())){
-           
+
             Usuario nuevoUser = new Usuario(strUsuario, strPass, strCorreo, strFechaNacimiento);
 
             addUsuario(nuevoUser);

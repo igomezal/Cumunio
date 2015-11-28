@@ -39,6 +39,7 @@ public class GlobalClass extends Application {
         noticias.add(new Noticia("Comienza la temporada", "Ya era hora, tras unas largas vacaciones comenzamos con la nueva temporada", "16-11-2015"));
         noticias.add(new Noticia("Reparto de puntos", "Se han repartido los puntos de la jornada 10", "14-11-2015"));
         noticias.add(new Noticia("Nuevos jugadores mercado", "Han sido añadidos nuevos jugadores al mercado!", "10-11-2015"));
+        noticias.add(new Noticia("Lesion de ultima hora", "Varanne va a estar un mes de baja", "22-12-2015"));
 
         equipos.add(new Equipo("Armético de Matriz",150, R.drawable.atleti,13,AM));
         equipos.add(new Equipo("Bayar de Manich", 150, R.drawable.munich, 10,BM));
