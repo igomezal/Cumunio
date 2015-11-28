@@ -3,38 +3,49 @@ package com.ps.comunio;
 import android.app.Application;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 
 /**
  * Created by Ivan on 01/11/2015.
  */
 public class GlobalClass extends Application {
     private String usuario = "";
+
+    private ArrayList<Usuario> usuarios = new ArrayList<>();
+
     private ArrayList<Jugador> jugadoresDisponibles = new ArrayList<Jugador>();
     private ArrayList<Jugador> jugadoresFichados= new ArrayList<Jugador>();
     private ArrayList<Jugador> jugadoresSuplentes= new ArrayList<Jugador>();
+
     private ArrayList<Noticia> noticias= new ArrayList<Noticia>();
+
     private ArrayList<Equipo> equipos= new ArrayList<Equipo>();
+
     private ArrayList<Jugador> AMU = new ArrayList<Jugador>();
     private ArrayList<Jugador> RM = new ArrayList<Jugador>();
     private ArrayList<Jugador> CH = new ArrayList<Jugador>();
     private ArrayList<Jugador> AM = new ArrayList<Jugador>();
     private ArrayList<Jugador> BM = new ArrayList<Jugador>();
+
     private String saldo = "133000000";
 
     @Override
     public void onCreate(){
         super.onCreate();
+
+        usuarios.add(new Usuario("Pepito", "0000", "pepito@gmail.com", "18/8/97"));
+        usuarios.add(new Usuario("Jorge", "1995", "jorgape@gmail.com", "3/2/95"));
+
         noticias.add(new Noticia("Armetico de Matriz", "El Armetico de Matriz se alza con una nueva victoria tras derrotar al Real Mandril", "17-11-2015"));
         noticias.add(new Noticia("Comienza la temporada", "Ya era hora, tras unas largas vacaciones comenzamos con la nueva temporada", "16-11-2015"));
         noticias.add(new Noticia("Reparto de puntos", "Se han repartido los puntos de la jornada 10", "14-11-2015"));
         noticias.add(new Noticia("Nuevos jugadores mercado", "Han sido añadidos nuevos jugadores al mercado!", "10-11-2015"));
+
         equipos.add(new Equipo("Armético de Matriz",150, R.drawable.atleti,13,AM));
         equipos.add(new Equipo("Bayar de Manich", 150, R.drawable.munich, 10,BM));
         equipos.add(new Equipo("Cholsea",130, R.drawable.chelsea,5,CH));
         equipos.add(new Equipo("Mantester Unido",150, R.drawable.manchester,3,AMU));
         equipos.add(new Equipo("Real Mandril",180, R.drawable.madrid,2,RM));
+
         jugadoresDisponibles.add(new Jugador("Keylor Navas", "Real Madrid", "Portero", "7000000", 0.1,3.3,0.0,R.drawable.navas));
         jugadoresDisponibles.add(new Jugador("Lucas Perez", "Deportivo", "Centrocampista", "11250000", 0.2,5.5,3.0, R.drawable.lucas));
         jugadoresDisponibles.add(new Jugador("Nolito", "Celta", "Delantero", "15320000", 0.2,5.5,3.0,R.drawable.nolito));
@@ -111,6 +122,15 @@ public class GlobalClass extends Application {
         BM.add(new Jugador("Muller","Villareal","Delantero","5000000",0.1,3.2,0.0,R.drawable.defecto));
         BM.add(new Jugador("Lewandowsky","Valencia","Delantero","5500000",0.4,3.3,0.0,R.drawable.defecto));
     }
+
+    public ArrayList<Usuario> getUsuarios() {
+        return this.usuarios;
+    }
+
+    public void setUsuarios(ArrayList<Usuario> usuarios) {
+        this.usuarios = usuarios;
+    }
+
     public void setUsuario(String nombre){
         this.usuario=nombre;
     }
@@ -121,7 +141,7 @@ public class GlobalClass extends Application {
         return this.jugadoresFichados;
     }
     public ArrayList<Jugador> getJugadoresSuplentes() {
-        return jugadoresSuplentes;
+        return this.jugadoresSuplentes;
     }
     public void ficharJugador(Jugador player){
         jugadoresDisponibles.remove(player);
@@ -155,6 +175,10 @@ public class GlobalClass extends Application {
         int a = Integer.parseInt(getSaldo());
         int b = Integer.parseInt(player.getValor());
         return ((a-b)>=0);
+    }
+
+    public void addUsuarioArray(Usuario user){
+        usuarios.add(user);
     }
 
 }

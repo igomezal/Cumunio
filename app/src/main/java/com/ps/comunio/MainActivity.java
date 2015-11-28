@@ -2,19 +2,20 @@ package com.ps.comunio;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
     //public final static String EXTRA_MESSAGE = "com.ps.comunio.MESSAGE";
+    ArrayList<Usuario> usuarios = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,22 +29,32 @@ public class MainActivity extends AppCompatActivity {
     public void sendMessage(View view){
         EditText usuario = (EditText) findViewById(R.id.username);
         String strUsuario = usuario.getText().toString();
+
         EditText pass = (EditText)findViewById(R.id.editText2);
         String strPass = pass.getText().toString();
 
-        if(strUsuario.equals("Pepito") && strPass.equals("0000")) {
-            Intent intent = new Intent(this, Menuss.class);
-            //intent.putExtra(EXTRA_MESSAGE, strUsuario);
-            setNombre("Pepito");
-            startActivity(intent);
-        }else{
-            Toast.makeText(this, "Usuario o contraseña incorrecta", Toast.LENGTH_LONG).show();
+        usuarios = getUsuarios();
+
+        for(int i = 0; i < usuarios.size(); i++) {
+            if (strUsuario.equals(usuarios.get(i).getUser()) && strPass.equals(usuarios.get(i).getPass())) {
+                Intent intent = new Intent(this, Menuss.class);
+
+                setNombre(usuarios.get(i).getUser());
+                startActivity(intent);
+            } else {
+                Toast.makeText(this, "Usuario o contraseña incorrecta", Toast.LENGTH_LONG).show();
+            }
         }
     }
+
     public void logTest(View view){
         Intent intent = new Intent(this, Menuss.class);
         //intent.putExtra(EXTRA_MESSAGE, strUsuario);
         setNombre("Pepito");
+        startActivity(intent);
+    }
+    public void toRegistro(View view){
+        final Intent intent = new Intent(this, RegistroActivity.class);
         startActivity(intent);
     }
     @Override
@@ -70,5 +81,10 @@ public class MainActivity extends AppCompatActivity {
     public void setNombre(String nombre){
         final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
         globalVariable.setUsuario(nombre);
+    }
+
+    public ArrayList<Usuario> getUsuarios(){
+        final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
+        return globalVariable.getUsuarios();
     }
 }
