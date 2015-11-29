@@ -2,19 +2,27 @@ package com.ps.comunio;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+
+import java.util.ArrayList;
+
+import cz.msebera.android.httpclient.Header;
+
 public class MainActivity extends AppCompatActivity {
-    //public final static String EXTRA_MESSAGE = "com.ps.comunio.MESSAGE";
+    String contra = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,22 +36,24 @@ public class MainActivity extends AppCompatActivity {
     public void sendMessage(View view){
         EditText usuario = (EditText) findViewById(R.id.username);
         String strUsuario = usuario.getText().toString();
+
         EditText pass = (EditText)findViewById(R.id.editText2);
         String strPass = pass.getText().toString();
 
-        if(strUsuario.equals("Pepito") && strPass.equals("0000")) {
-            Intent intent = new Intent(this, Menuss.class);
-            //intent.putExtra(EXTRA_MESSAGE, strUsuario);
-            setNombre(strUsuario);
-            startActivity(intent);
-        }else{
-            Toast.makeText(this, "Usuario o contraseña incorrecta", Toast.LENGTH_LONG).show();
-        }
+        obtContraseña(strUsuario,strPass);
+
+
+
     }
+
     public void logTest(View view){
         Intent intent = new Intent(this, Menuss.class);
         //intent.putExtra(EXTRA_MESSAGE, strUsuario);
         setNombre("Pepito");
+        startActivity(intent);
+    }
+    public void toRegistro(View view){
+        final Intent intent = new Intent(this, RegistroActivity.class);
         startActivity(intent);
     }
     @Override
@@ -71,4 +81,48 @@ public class MainActivity extends AppCompatActivity {
         final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
         globalVariable.setUsuario(nombre);
     }
+
+    public void obtContraseña(String nombre,String strPass){
+        AsyncHttpClient client = new AsyncHttpClient();
+        String url = "http://tomatodevelopers.com/cumunio/login.php";
+
+        RequestParams parametros = new RequestParams();
+
+        parametros.put("usuario",nombre);
+        final String pass = strPass;
+        final String strUsuario = nombre;
+        client.post(url, parametros, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if(statusCode==200){
+                    obtContraseñaJson(new String(responseBody));
+
+                    if (pass.equals(contra)) {
+                        Intent intent = new Intent(getApplicationContext(), Menuss.class);
+                        setNombre(strUsuario);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Usuario o contraseña incorrecta", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+        });
+    }
+    public void obtContraseñaJson(String response){
+        contra = "";
+        try{
+            JSONArray jsonArray = new JSONArray(response);
+            for(int i=0;i<jsonArray.length();i++){
+                contra =jsonArray.getJSONObject(i).getString("Contraseña");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
 }

@@ -48,11 +48,11 @@
         </RelativeLayout>
     </RelativeLayout>
     <Button android:id="@+id/floating_button2"
-    android:layout_height="wrap_content"
-    android:layout_width="wrap_content"
-    android:text="Floating"
-    android:drawableLeft="@drawable/ic_coins_s"
-    android:padding="5dp"
-    android:layout_margin="5dp"
-    android:layout_gravity="right|bottom"/>
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Floating"
+        android:drawableLeft="@drawable/ic_coins_s"
+        android:padding="5dp"
+        android:layout_margin="5dp"
+        android:layout_gravity="right|bottom"/>
 </FrameLayout>
