@@ -19,7 +19,6 @@ public class fragmentInicio extends Fragment {
     private ListView lvNoticias;
     private ArrayList<Noticia> datos= new ArrayList<Noticia>();
     AdaptadorNoticias adapter;
-
     public fragmentInicio() {
         // Required empty public constructor
     }
@@ -32,12 +31,10 @@ public class fragmentInicio extends Fragment {
         View rootView = inflater.inflate(R.layout.frame_inicio, container, false);
         Button sald = (Button) rootView.findViewById(R.id.floating_button2);
         sald.setText(getSald());
-
         datos = getNoticias();
         lvNoticias = (ListView)rootView.findViewById(R.id.lvNoticias);
         adapter = new AdaptadorNoticias(getActivity(),datos);
         lvNoticias.setAdapter(adapter);
-
         return rootView;
     }
 
@@ -52,16 +49,12 @@ public class fragmentInicio extends Fragment {
         public View getView(int position, View convertView, ViewGroup parent){
             LayoutInflater inflater = LayoutInflater.from(getContext());
             View item = inflater.inflate(R.layout.listitem_noticia, null);
-
-            TextView titulo = (TextView) item.findViewById(R.id.tvCabecera);
-            TextView descripcion = (TextView) item.findViewById(R.id.tvContenido);
-
-            // rss - channel - item - title
-            titulo.setText(datos.get(position).getTitular());
-
-            // rss - channel - item - description
-            descripcion.setText(datos.get(position).getCuerpo());
-
+            TextView cabecera = (TextView) item.findViewById(R.id.tvCabecera);
+            TextView fecha = (TextView) item.findViewById(R.id.tvFecha);
+            TextView contenido = (TextView) item.findViewById(R.id.tvContenido);
+            cabecera.setText(datos.get(position).getTitular());
+            fecha.setText(datos.get(position).getFecha());
+            contenido.setText(datos.get(position).getCuerpo());
             return item;
         }
     }
