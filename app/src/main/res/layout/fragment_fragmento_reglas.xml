@@ -2,6 +2,119 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" tools:context="com.ps.comunio.FragmentoReglas">
 
+    <!-- TODO: Update blank fragment layout -->
+<ScrollView
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="- Inicialmente se tendra un dinero que se puede gastar en la compra de jugadores del mercado."
+        android:id="@+id/reglas1"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="- Cada jugador puede formar parte de un único equipo."
+        android:id="@+id/reglas2"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="- Se puede poner a la venta un jugador de nuestro equipo."
+        android:id="@+id/reglas3"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="- La liga consistira en acumular puntos segun lo que hagan los jugadores en sus partidos."
+        android:id="@+id/reglas4"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="- El primer jugador clasificado cada semana obtendrá 1000000."
+        android:id="@+id/reglas5"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="- El primer jugador clasificado cada semana obtendrá 500000."
+        android:id="@+id/reglas6"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="- El primer jugador clasificado cada semana obtendrá 250000."
+        android:id="@+id/reglas7"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="- Todos los jugadores obtendran 1000 monedas por cada punto que hagan sus jugadores."
+        android:id="@+id/reglas8"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="- Los goles sumaran 5 puntos."
+        android:id="@+id/reglas9"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="- Las asistencias sumaran 3 puntos."
+        android:id="@+id/reglas10"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="- La participacion del jugador sumara 1 punto."
+        android:id="@+id/reglas11"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="- La participacion como titular sumara 1 punto."
+        android:id="@+id/reglas12"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="- Tarjeta roja descontara 3 puntos."
+        android:id="@+id/reglas13"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="- Tarjeta amarilla descontara 1 punto."
+        android:id="@+id/reglas14"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="- Cada equipo puede tener un maximo de 22 jugadores y un minimo de 11."
+        android:id="@+id/reglas15"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="- La liga debera estar compuesta al menos por 4 equipos."
+        android:id="@+id/reglas16"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="- El mercado de fichajes se renovara cada semana."
+        android:id="@+id/reglas17"/>
+    </LinearLayout>
+</ScrollView>
+
     <Button android:id="@+id/floating_button4"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
@@ -11,190 +124,5 @@
         android:layout_margin="5dp"
         android:layout_gravity="right|bottom"/>
 
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/pizarra">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_marginTop="50dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="29dp"
-                android:layout_marginBottom="20dp"
-
-                android:textColor="#FFFF"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="- Inicialmente se tendra un dinero para gastar en comprar jugadores."
-                android:id="@+id/reglas1"/>
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="28dp"
-                android:layout_marginBottom="20dp"
-                android:textColor="#FFFF"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="- Cada jugador puede formar parte de un único equipo."
-                android:id="@+id/reglas2"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="28dp"
-                android:layout_marginBottom="20dp"
-                android:textColor="#FFFF"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="- Se puede poner a la venta un jugador de nuestro equipo."
-                android:id="@+id/reglas3"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="28dp"
-                android:layout_marginBottom="20dp"
-                android:textColor="#FFFF"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="- La liga consistira en acumular puntos segun lo que hagan los jugadores en sus partidos."
-                android:id="@+id/reglas4"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="28dp"
-                android:layout_marginBottom="20dp"
-                android:textColor="#FFFF"
-                android:text="- El primer jugador clasificado cada semana obtendrá 1000000."
-                android:id="@+id/reglas5"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="28dp"
-                android:layout_marginBottom="20dp"
-                android:textColor="#FFFF"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="- El primer jugador clasificado cada semana obtendrá 500000."
-                android:id="@+id/reglas6"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="28dp"
-                android:layout_marginBottom="20dp"
-                android:textColor="#FFFF"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="- El primer jugador clasificado cada semana obtendrá 250000."
-                android:id="@+id/reglas7"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="28dp"
-                android:layout_marginBottom="20dp"
-                android:textColor="#FFFF"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="- Todos los jugadores obtendran 1000 monedas por cada punto que hagan sus jugadores."
-                android:id="@+id/reglas8"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#FFFF"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="28dp"
-                android:layout_marginBottom="20dp"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="- Los goles sumaran 5 puntos."
-                android:id="@+id/reglas9"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="28dp"
-                android:layout_marginBottom="20dp"
-                android:textColor="#FFFF"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="- Las asistencias sumaran 3 puntos."
-                android:id="@+id/reglas10"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="28dp"
-                android:layout_marginBottom="20dp"
-                android:textColor="#FFFF"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="- La participacion del jugador sumara 1 punto."
-                android:id="@+id/reglas11"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="28dp"
-                android:layout_marginBottom="20dp"
-                android:textColor="#FFFF"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="- La participacion como titular sumara 1 punto."
-                android:id="@+id/reglas12"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="28dp"
-                android:layout_marginBottom="20dp"
-                android:textColor="#FFFF"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="- Tarjeta roja descontara 3 puntos."
-                android:id="@+id/reglas13"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="28dp"
-                android:layout_marginBottom="20dp"
-                android:textColor="#FFFF"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="- Tarjeta amarilla descontara 1 punto."
-                android:id="@+id/reglas14"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="28dp"
-                android:layout_marginBottom="20dp"
-                android:textColor="#FFFF"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="- Cada equipo puede tener un maximo de 22 jugadores y un minimo de 11."
-                android:id="@+id/reglas15"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="28dp"
-                android:layout_marginBottom="20dp"
-                android:textColor="#FFFF"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="- La liga debera estar compuesta al menos por 4 equipos."
-                android:id="@+id/reglas16"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="28dp"
-                android:layout_marginBottom="60dp"
-                android:textColor="#FFFF"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="- El mercado de fichajes se renovara cada semana."
-                android:id="@+id/reglas17"/>
-        </LinearLayout>
-    </ScrollView>
 
 </FrameLayout>
