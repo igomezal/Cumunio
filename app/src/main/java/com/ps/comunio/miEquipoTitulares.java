@@ -30,6 +30,8 @@ public class miEquipoTitulares extends ListFragment {
     AdaptadorJugador adapter;
     private View rootView;
     private String user;
+    private Button sald;
+    private int saldo;
 
     public miEquipoTitulares() {
 
@@ -41,9 +43,8 @@ public class miEquipoTitulares extends ListFragment {
 
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_fragment1,container,false);
-        Button sald = (Button) rootView.findViewById(R.id.floating_button);
-        sald.setText(getSald());
         user = getGlobalUsuario();
+        obtSaldo();
         obtJugadores();
         return rootView;
     }
@@ -62,15 +63,15 @@ public class miEquipoTitulares extends ListFragment {
                     case 0:
                         AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
                         builder1.setTitle("Vender Jugador");
-                        builder1.setMessage("¿Desea vender el jugador " + datos.get(identificador).getNombre() + " por " + datos.get(identificador).getValor());
+                        builder1.setMessage("¿Desea vender el jugador " + datos.get(identificador).getNombre() + " por " + datos.get(identificador).getValor() + "?");
                         builder1.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Toast.makeText(getActivity(), "Ha vendido a " + datos.get(identificador).getNombre() + ".", Toast.LENGTH_LONG).show();
+                                venta(datos.get(identificador).getNombre());
                                 vender(datos.get(identificador));
                                 obtJugadores();
-                                Button sald = (Button) rootView.findViewById(R.id.floating_button);
-                                sald.setText(getSald());
+                                obtSaldo();
                                 adapter.notifyDataSetChanged();
                             }
                         });
@@ -161,19 +162,10 @@ public class miEquipoTitulares extends ListFragment {
             Nombre.setText(datos.get(position).getNombre());
             Equipo.setText(datos.get(position).getEquipo());
             Imagen.setImageResource(datos.get(position).getImagen());
-            Valoracion.setText("Valor:" + datos.get(position).getValoracion());
+            Valoracion.setText("Puntos:" + datos.get(position).getValoracion());
 
             return item;
         }
-    }
-    public ArrayList<Jugador> getMiEquipo(){
-        final GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
-
-        return globalVariable.getJugadoresFichados();
-    }
-    public String getSald(){
-        GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
-        return globalVariable.getSaldo();
     }
 
     public void obtJugadores(){
@@ -229,10 +221,74 @@ public class miEquipoTitulares extends ListFragment {
     public void CargaLista(){
         adapter = new AdaptadorJugador(getActivity(),datos);
         setListAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
     }
 
     public String getGlobalUsuario(){
         final GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
         return globalVariable.getUsuario();
+    }
+
+    public void obtSaldo(){
+        AsyncHttpClient client =new AsyncHttpClient();
+        String url="http://tefox.esy.es/saldo.php";
+
+        RequestParams parametros = new RequestParams();
+        parametros.put("usuario","\""+user+"\"");
+        client.post(url, parametros, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (statusCode == 200) {
+                    obtSaldoJson(new String(responseBody));
+                    botonSaldo();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+        });
+
+    }
+    public void obtSaldoJson(String response){
+        saldo = 0;
+        try{
+            JSONArray jsonArray = new JSONArray(response);
+            for(int i=0;i<jsonArray.length();i++){
+                saldo = jsonArray.getJSONObject(i).getInt("Saldo");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+    public void botonSaldo(){
+        sald = (Button) rootView.findViewById(R.id.floating_button);
+        sald.setText(Integer.toString(saldo));
+    }
+
+    public void venta(String jugador){
+        AsyncHttpClient client =new AsyncHttpClient();
+        String url="http://tefox.esy.es/venta.php";
+
+        RequestParams parametros = new RequestParams();
+        parametros.put("usuario","\""+user+"\"");
+        parametros.put("jugador","\""+jugador+"\"");
+
+        client.post(url, parametros, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (statusCode == 200) {
+
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+        });
     }
 }

@@ -17,16 +17,29 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+
+import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by sergiownd on 25/10/15.
  */
 public class FragmentoEquipo extends ListFragment {
     private ArrayList<Equipo> datos =new ArrayList<Equipo>();
+    private AdaptadorEquipo adapter;
+    private View rootView;
+    private Button sald;
+    private String user;
+    private int saldo;
 
     public FragmentoEquipo() {
         // Required empty public constructor
@@ -37,14 +50,10 @@ public class FragmentoEquipo extends ListFragment {
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_equipo,container,false);
-        Button sald = (Button) rootView.findViewById(R.id.floating_button1);
-        sald.setText(getSald());
-        datos = getEq();
-        Collections.sort(datos);
-        AdaptadorEquipo adapter = new AdaptadorEquipo(getActivity(),datos);
-        setListAdapter(adapter);
-
+        rootView = inflater.inflate(R.layout.fragment_equipo,container,false);
+        user = getGlobalUsuario();
+        obtSaldo();
+        obtEquipos();
         return rootView;
     }
 
@@ -58,10 +67,10 @@ public class FragmentoEquipo extends ListFragment {
             View item = inflater.inflate(R.layout.listitem_equipo, null);
 
             TextView Nombre = (TextView) item.findViewById(R.id.NombreEquipo);
-            Nombre.setText(datos.get(position).getNombre());
+            Nombre.setText("Equipo de "+datos.get(position).getNombre());
 
             TextView Valor = (TextView) item.findViewById(R.id.EqValor);
-            Valor.setText("Valor: " + datos.get(position).getValor() + " millones.");
+            Valor.setText("");
 
             ImageView ImagenEquipo = (ImageView) item.findViewById(R.id.ImagenEquipo);
             ImagenEquipo.setImageResource(datos.get(position).getEqImagen());
@@ -78,15 +87,107 @@ public class FragmentoEquipo extends ListFragment {
         final int identificador = position;
 
         Intent intent = new Intent(getContext(), infoEquipo.class);
-        intent.putExtra("position", Integer.toString(position));
+        intent.putExtra("Equipo", datos.get(identificador).getNombre());
+        intent.putExtra("Imagen",datos.get(identificador).getEqImagen());
+        intent.putExtra("Puntos",datos.get(identificador).getPuntos());
+        intent.putExtra("Valor",datos.get(identificador).getValor());
+
         startActivity(intent);
     }
-    public String getSald(){
-        GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
-        return globalVariable.getSaldo();
+
+
+    public void obtEquipos(){
+        AsyncHttpClient client = new AsyncHttpClient();
+        String url="http://tefox.esy.es/equipos.php";
+
+        RequestParams parametros = new RequestParams();
+
+        client.post(url, parametros, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (statusCode == 200) {
+                    obtEquiposJSON(new String(responseBody));
+                    CargaLista();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+        });
     }
-    public ArrayList<Equipo> getEq(){
-        GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
-        return globalVariable.getEquipos();
+    public void obtEquiposJSON(String response){
+        datos.clear();
+        try{
+            JSONArray jsonArray = new JSONArray(response);
+            String nombre;
+            int imagen,puntos;
+
+            for(int i=0;i<jsonArray.length();i++){
+                nombre = jsonArray.getJSONObject(i).getString("Nombre");
+                imagen = convertirRutaEnId(jsonArray.getJSONObject(i).getString("Avatar"));
+                puntos = jsonArray.getJSONObject(i).getInt("Puntos");
+                datos.add(new Equipo(nombre,imagen,puntos));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
+    private int convertirRutaEnId(String nombre){
+        Context context = getActivity().getBaseContext();
+        return context.getResources().getIdentifier(nombre, "drawable", context.getPackageName());
+    }
+
+    public void CargaLista(){
+        adapter = new AdaptadorEquipo(getActivity(),datos);
+        Collections.sort(datos);
+        setListAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
+
+    public void obtSaldo(){
+        AsyncHttpClient client =new AsyncHttpClient();
+        String url="http://tefox.esy.es/saldo.php";
+
+        RequestParams parametros = new RequestParams();
+        parametros.put("usuario", "\"" + user + "\"");
+        client.post(url, parametros, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (statusCode == 200) {
+                    obtSaldoJson(new String(responseBody));
+                    botonSaldo();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+        });
+
+    }
+    public void obtSaldoJson(String response){
+        saldo = 0;
+        try{
+            JSONArray jsonArray = new JSONArray(response);
+            for(int i=0;i<jsonArray.length();i++){
+                saldo = jsonArray.getJSONObject(i).getInt("Saldo");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+    public void botonSaldo(){
+        sald = (Button) rootView.findViewById(R.id.floating_button1);
+        sald.setText(Integer.toString(saldo));
+    }
+
+    public String getGlobalUsuario(){
+        final GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
+        return globalVariable.getUsuario();
+    }
+
 }

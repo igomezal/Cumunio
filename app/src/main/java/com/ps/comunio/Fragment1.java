@@ -27,8 +27,11 @@ import cz.msebera.android.httpclient.Header;
 public class Fragment1 extends ListFragment {
 
     private ArrayList<Jugador> datos= new ArrayList<Jugador>();
-    AdaptadorJugador adapter;
-    View rootView;
+    private int saldo=0;
+    private AdaptadorJugador adapter;
+    private View rootView;
+    private String user;
+    private Button sald;
 
     public Fragment1() {
         // Required empty public constructor
@@ -40,8 +43,8 @@ public class Fragment1 extends ListFragment {
 
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_fragment1,container,false);
-        Button sald = (Button) rootView.findViewById(R.id.floating_button);
-        sald.setText(getSald());
+        user = getGlobalUsuario();
+        obtSaldo();
         obtJugadores();
         return rootView;
     }
@@ -62,11 +65,11 @@ public class Fragment1 extends ListFragment {
                     Toast.makeText(getActivity(), "Fichado " + datos.get(identificador).getNombre(), Toast.LENGTH_LONG).show();
 
                     fichar(datos.get(identificador));
-                    obtJugadores();
+                    compra(datos.get(identificador).getNombre());
 
-                    //Obtener el valor de la base de datos
-                    Button sald = (Button) rootView.findViewById(R.id.floating_button);
-                    sald.setText(getSald());
+                    obtJugadores();
+                    obtSaldo();
+
                 } else {
                     Toast.makeText(getActivity(), "No tienes saldo suficiente para fichar a " + datos.get(identificador).getNombre(), Toast.LENGTH_LONG).show();
                 }
@@ -94,7 +97,7 @@ public class Fragment1 extends ListFragment {
             TextView Valoracion = (TextView) item.findViewById(R.id.tvValoracion);
             Nombre.setText(datos.get(position).getNombre());
             Equipo.setText(datos.get(position).getEquipo());
-            Valoracion.setText("Valor: " + datos.get(position).getValoracion());
+            Valoracion.setText("Puntos:" + datos.get(position).getValoracion());
             Imagen.setImageResource(datos.get(position).getImagen());
             return item;
         }
@@ -105,7 +108,7 @@ public class Fragment1 extends ListFragment {
         RequestParams parametros = new RequestParams();
 
         //Obtener valor del login
-        parametros.put("user","\"Pepito\"");
+        parametros.put("user","\""+user+"\"");
         parametros.put("nombre","\""+player.getNombre()+"\"");
 
         client.post(url, parametros, new AsyncHttpResponseHandler() {
@@ -121,13 +124,75 @@ public class Fragment1 extends ListFragment {
         });
     }
 
-    public String getSald(){
-        GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
-        return globalVariable.getSaldo();
-    }
+
     public boolean puedoFichar(Jugador player){
-        GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
-        return globalVariable.saldoSuficiente(player);
+        if(saldo-Integer.parseInt(player.getValor())<0){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    public void compra(String jugador){
+        AsyncHttpClient client =new AsyncHttpClient();
+        String url="http://tefox.esy.es/compra.php";
+
+        RequestParams parametros = new RequestParams();
+        parametros.put("usuario","\""+user+"\"");
+        parametros.put("jugador","\""+jugador+"\"");
+
+        client.post(url, parametros, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (statusCode == 200) {
+
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+        });
+    }
+
+    public void obtSaldo(){
+        AsyncHttpClient client =new AsyncHttpClient();
+        String url="http://tefox.esy.es/saldo.php";
+
+        RequestParams parametros = new RequestParams();
+        parametros.put("usuario","\""+user+"\"");
+        client.post(url, parametros, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (statusCode == 200) {
+                    obtSaldoJson(new String(responseBody));
+                    botonSaldo();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+        });
+
+    }
+    public void obtSaldoJson(String response){
+        saldo = 0;
+        try{
+            JSONArray jsonArray = new JSONArray(response);
+            for(int i=0;i<jsonArray.length();i++){
+                saldo = jsonArray.getJSONObject(i).getInt("Saldo");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+    public void botonSaldo(){
+        sald = (Button) rootView.findViewById(R.id.floating_button);
+        sald.setText(Integer.toString(saldo));
     }
 
     public void obtJugadores(){
@@ -141,7 +206,7 @@ public class Fragment1 extends ListFragment {
         client.post(url, parametros, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                if(statusCode==200){
+                if (statusCode == 200) {
                     obtJugadoresJSON(new String(responseBody));
                     CargaLista();
                 }
@@ -181,5 +246,11 @@ public class Fragment1 extends ListFragment {
     public void CargaLista(){
         adapter = new AdaptadorJugador(getActivity(),datos);
         setListAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
+
+    public String getGlobalUsuario(){
+        final GlobalClass globalVariable = (GlobalClass) getActivity().getApplicationContext();
+        return globalVariable.getUsuario();
     }
 }

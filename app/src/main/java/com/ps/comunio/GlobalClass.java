@@ -30,11 +30,12 @@ public class GlobalClass extends Application {
         noticias.add(new Noticia("Comienza la temporada", "Ya era hora, tras unas largas vacaciones comenzamos con la nueva temporada", "16-11-2015"));
         noticias.add(new Noticia("Reparto de puntos", "Se han repartido los puntos de la jornada 10", "14-11-2015"));
         noticias.add(new Noticia("Nuevos jugadores mercado", "Han sido añadidos nuevos jugadores al mercado!", "10-11-2015"));
+        /*
         equipos.add(new Equipo("Armético de Matriz", R.drawable.atleti,13,AM));
         equipos.add(new Equipo("Bayar de Manich", R.drawable.munich, 10,BM));
         equipos.add(new Equipo("Cholsea", R.drawable.chelsea,5,CH));
         equipos.add(new Equipo("Mantester Unido", R.drawable.manchester,3,AMU));
-        equipos.add(new Equipo("Real Mandril", R.drawable.madrid,2,RM));
+        equipos.add(new Equipo("Real Mandril", R.drawable.madrid,2,RM));*/
         /*jugadoresDisponibles.add(new Jugador("Keylor Navas", "Real Madrid", "Portero", "7000000",R.drawable.navas));
         jugadoresDisponibles.add(new Jugador("Lucas Perez","Deportivo","Centrocampista","11250000",R.drawable.lucas));
         jugadoresDisponibles.add(new Jugador("Nolito", "Celta", "Delantero", "15320000",R.drawable.nolito));
@@ -118,19 +119,8 @@ public class GlobalClass extends Application {
     public String getUsuario(){
         return this.usuario;
     }
-    public ArrayList<Jugador> getJugadoresFichados(){
-        return this.jugadoresFichados;
-    }
-
-
     public String getSaldo(){return this.saldo;}
-    public void setSaldo(String saldo){this.saldo=saldo;}
 
-    public ArrayList<Equipo>getEquipos(){return  this.equipos;}
-    public boolean saldoSuficiente(Jugador player){
-        int a = Integer.parseInt(getSaldo());
-        int b = Integer.parseInt(player.getValor());
-        return ((a-b)>=0);
-    }
+
 
 }
