@@ -3,8 +3,6 @@ package com.ps.comunio;
 import android.app.Application;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 
 /**
  * Created by Ivan on 01/11/2015.
@@ -26,10 +24,10 @@ public class GlobalClass extends Application {
     @Override
     public void onCreate(){
         super.onCreate();
-        noticias.add(new Noticia("Armetico de Matriz", "El Armetico de Matriz se alza con una nueva victoria tras derrotar al Real Mandril", "17-11-2015"));
-        noticias.add(new Noticia("Comienza la temporada", "Ya era hora, tras unas largas vacaciones comenzamos con la nueva temporada", "16-11-2015"));
-        noticias.add(new Noticia("Reparto de puntos", "Se han repartido los puntos de la jornada 10", "14-11-2015"));
-        noticias.add(new Noticia("Nuevos jugadores mercado", "Han sido añadidos nuevos jugadores al mercado!", "10-11-2015"));
+        noticias.add(new Noticia("Armetico de Matriz", "El Armetico de Matriz se alza con una nueva victoria tras derrotar al Real Mandril"));
+        noticias.add(new Noticia("Comienza la temporada", "Ya era hora, tras unas largas vacaciones comenzamos con la nueva temporada"));
+        noticias.add(new Noticia("Reparto de puntos", "Se han repartido los puntos de la jornada 10"));
+        noticias.add(new Noticia("Nuevos jugadores mercado", "Han sido añadidos nuevos jugadores al mercado!"));
         equipos.add(new Equipo("Armético de Matriz",150, R.drawable.atleti,13,AM));
         equipos.add(new Equipo("Bayar de Manich", 150, R.drawable.munich, 10,BM));
         equipos.add(new Equipo("Cholsea",130, R.drawable.chelsea,5,CH));
