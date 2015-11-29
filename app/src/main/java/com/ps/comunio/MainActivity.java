@@ -84,11 +84,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void obtContraseña(String nombre,String strPass){
         AsyncHttpClient client = new AsyncHttpClient();
-        String url = "http://tefox.esy.es/login.php";
+        String url = "http://tomatodevelopers.com/cumunio/login.php";
 
         RequestParams parametros = new RequestParams();
 
-        parametros.put("usuario","\""+nombre+"\"");
+        parametros.put("usuario",nombre);
         final String pass = strPass;
         final String strUsuario = nombre;
         client.post(url, parametros, new AsyncHttpResponseHandler() {

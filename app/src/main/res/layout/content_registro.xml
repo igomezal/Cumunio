@@ -15,9 +15,9 @@
         android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/editUser"
-        android:layout_above="@+id/editPass"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="46dp" />
+        android:layout_above="@+id/textPass"
+        android:layout_alignLeft="@+id/textCorreo"
+        android:layout_alignStart="@+id/textCorreo" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -43,43 +43,41 @@
         android:text="Contraseña"
         android:id="@+id/textPass"
         android:layout_above="@+id/editPass"
-        android:layout_alignLeft="@+id/editUser"
-        android:layout_alignStart="@+id/editUser" />
+        android:layout_alignLeft="@+id/editPass"
+        android:layout_alignStart="@+id/editPass" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/editPass2"
+        android:layout_below="@+id/textCorreo"
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Repetir contraseña"
+        android:id="@+id/textCorreo"
+        android:layout_below="@+id/editPass"
+        android:layout_alignLeft="@+id/editPass2"
+        android:layout_alignStart="@+id/editPass2" />
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/editCorreo"
-        android:layout_below="@+id/textCorreo"
-        android:layout_centerHorizontal="true" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Correo electrónico"
-        android:id="@+id/textCorreo"
-        android:layout_marginTop="35dp"
-        android:layout_below="@+id/editPass"
-        android:layout_alignLeft="@+id/editPass"
-        android:layout_alignStart="@+id/editPass" />
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/editFechanacimiento"
         android:layout_below="@+id/textFechaNacimiento"
         android:layout_alignLeft="@+id/textCorreo"
         android:layout_alignStart="@+id/textCorreo" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Fecha de nacimiento"
+        android:text="Correo electronico"
         android:id="@+id/textFechaNacimiento"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/editCorreo"
-        android:layout_alignLeft="@+id/editFechanacimiento"
-        android:layout_alignStart="@+id/editFechanacimiento" />
+        android:layout_below="@+id/editPass2"
+        android:layout_alignLeft="@+id/editPass2"
+        android:layout_alignStart="@+id/editPass2" />
 
     <Button
         android:layout_width="wrap_content"

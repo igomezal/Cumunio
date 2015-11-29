@@ -12,8 +12,6 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-import java.util.ArrayList;
-
 import cz.msebera.android.httpclient.Header;
 
 public class RegistroActivity extends AppCompatActivity {
@@ -40,33 +38,35 @@ public class RegistroActivity extends AppCompatActivity {
         EditText correoEdit = (EditText) findViewById(R.id.editCorreo);
         String strCorreo = correoEdit.getText().toString();
 
-        EditText fechaNacimientoEdit = (EditText)findViewById(R.id.editFechanacimiento);
-        String strFechaNacimiento = fechaNacimientoEdit.getText().toString();
+        EditText pass2Edit = (EditText)findViewById(R.id.editPass2);
+        String strPass2 = pass2Edit.getText().toString();
 
         if((strUsuario != null && !strUsuario.isEmpty()) && (strPass != null && !strPass.isEmpty())){
+            if(strPass.equals(strPass2)) {
+                addUsuario(strUsuario, strPass, strCorreo);
 
-            addUsuario(strUsuario,strPass,strCorreo,strFechaNacimiento);
+                Toast.makeText(this, "Usuario " + strUsuario + " creado.", Toast.LENGTH_LONG).show();
 
-            Toast.makeText(this, "Usuario " + strUsuario + " creado.", Toast.LENGTH_LONG).show();
-
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+            }
+            else
+                Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_LONG).show();
         }else{
             Toast.makeText(this, "Usuario o contraseña vacios, intentelo de nuevo", Toast.LENGTH_LONG).show();
         }
 
     }
 
-    public void addUsuario(String nombre,String contraseña,String correo,String fecha){
+    public void addUsuario(String nombre,String contraseña,String correo){
         AsyncHttpClient client = new AsyncHttpClient();
-        String url = "http://tefox.esy.es/registro.php";
+        String url = "http://tomatodevelopers.com/cumunio/registro.php";
 
         RequestParams parametros = new RequestParams();
 
-        parametros.put("nombre","\""+nombre+"\"");
-        parametros.put("contraseña","\""+contraseña+"\"");
-        parametros.put("correo","\""+correo+"\"");
-        parametros.put("fecha","\""+fecha+"\"");
+        parametros.put("nombre",nombre);
+        parametros.put("contraseña",contraseña);
+        parametros.put("correo",correo);
 
         client.post(url, parametros, new AsyncHttpResponseHandler() {
             @Override
