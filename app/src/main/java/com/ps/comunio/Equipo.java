@@ -10,15 +10,13 @@ public class Equipo implements Comparable<Equipo> {
     private int EqValor;
     private int EqImagen;
     private int puntos;
-    private ArrayList<Jugador> EqJugadores;
 
-    public Equipo (String name, int valor, int imagen,int puntos,ArrayList<Jugador> EqJugadores){
+
+    public Equipo (String name, int imagen,int puntos){
         this.EqNombre=name;
-        this.EqValor=valor;
+        this.EqValor=0;
         this.EqImagen=imagen;
         this.puntos=puntos;
-        this.EqJugadores = EqJugadores;
-
     }
 
     public String getNombre(){return this.EqNombre;}
@@ -28,7 +26,7 @@ public class Equipo implements Comparable<Equipo> {
     public void setValor(int i){this.EqValor=i;}
     public int getEqImagen(){return this.EqImagen;}
     public void setEqImagen(int imagen){this.EqImagen = imagen;}
-    public ArrayList<Jugador> getJugadores (){return this.EqJugadores;}
+
 
     @Override
     public int compareTo(Equipo another) {

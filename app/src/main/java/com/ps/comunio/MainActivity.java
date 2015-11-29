@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         if(strUsuario.equals("Pepito") && strPass.equals("0000")) {
             Intent intent = new Intent(this, Menuss.class);
             //intent.putExtra(EXTRA_MESSAGE, strUsuario);
-            setNombre("Pepito");
+            setNombre(strUsuario);
             startActivity(intent);
         }else{
             Toast.makeText(this, "Usuario o contraseña incorrecta", Toast.LENGTH_LONG).show();
