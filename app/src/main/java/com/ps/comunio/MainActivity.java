@@ -10,11 +10,18 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 
+import cz.msebera.android.httpclient.Header;
+
 public class MainActivity extends AppCompatActivity {
-    //public final static String EXTRA_MESSAGE = "com.ps.comunio.MESSAGE";
-    ArrayList<Usuario> usuarios = new ArrayList<>();
+    String contra = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,18 +40,10 @@ public class MainActivity extends AppCompatActivity {
         EditText pass = (EditText)findViewById(R.id.editText2);
         String strPass = pass.getText().toString();
 
-        usuarios = getUsuarios();
+        obtContraseña(strUsuario,strPass);
 
-        for(int i = 0; i < usuarios.size(); i++) {
-            if (strUsuario.equals(usuarios.get(i).getUser()) && strPass.equals(usuarios.get(i).getPass())) {
-                Intent intent = new Intent(this, Menuss.class);
 
-                setNombre(usuarios.get(i).getUser());
-                startActivity(intent);
-            } else {
-                Toast.makeText(this, "Usuario o contraseña incorrecta", Toast.LENGTH_LONG).show();
-            }
-        }
+
     }
 
     public void logTest(View view){
@@ -83,8 +82,47 @@ public class MainActivity extends AppCompatActivity {
         globalVariable.setUsuario(nombre);
     }
 
-    public ArrayList<Usuario> getUsuarios(){
-        final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
-        return globalVariable.getUsuarios();
+    public void obtContraseña(String nombre,String strPass){
+        AsyncHttpClient client = new AsyncHttpClient();
+        String url = "http://tefox.esy.es/login.php";
+
+        RequestParams parametros = new RequestParams();
+
+        parametros.put("usuario","\""+nombre+"\"");
+        final String pass = strPass;
+        final String strUsuario = nombre;
+        client.post(url, parametros, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if(statusCode==200){
+                    obtContraseñaJson(new String(responseBody));
+
+                    if (pass.equals(contra)) {
+                        Intent intent = new Intent(getApplicationContext(), Menuss.class);
+                        setNombre(strUsuario);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Usuario o contraseña incorrecta", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+        });
     }
+    public void obtContraseñaJson(String response){
+        contra = "";
+        try{
+            JSONArray jsonArray = new JSONArray(response);
+            for(int i=0;i<jsonArray.length();i++){
+                contra =jsonArray.getJSONObject(i).getString("Contraseña");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
 }

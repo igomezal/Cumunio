@@ -8,17 +8,19 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
 import java.util.ArrayList;
 
-public class RegistroActivity extends AppCompatActivity {
+import cz.msebera.android.httpclient.Header;
 
-    ArrayList<Usuario> usuarios = new ArrayList<>();
+public class RegistroActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
-        usuarios = getUsuarios();
 
         super.onCreate(savedInstanceState);
 
@@ -42,12 +44,10 @@ public class RegistroActivity extends AppCompatActivity {
         String strFechaNacimiento = fechaNacimientoEdit.getText().toString();
 
         if((strUsuario != null && !strUsuario.isEmpty()) && (strPass != null && !strPass.isEmpty())){
-           
-            Usuario nuevoUser = new Usuario(strUsuario, strPass, strCorreo, strFechaNacimiento);
 
-            addUsuario(nuevoUser);
+            addUsuario(strUsuario,strPass,strCorreo,strFechaNacimiento);
 
-            Toast.makeText(this, "Usuario " + nuevoUser.getUser() + " creado.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Usuario " + strUsuario + " creado.", Toast.LENGTH_LONG).show();
 
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
@@ -57,15 +57,31 @@ public class RegistroActivity extends AppCompatActivity {
 
     }
 
-    public ArrayList<Usuario> getUsuarios(){
-        final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
-        return globalVariable.getUsuarios();
+    public void addUsuario(String nombre,String contraseña,String correo,String fecha){
+        AsyncHttpClient client = new AsyncHttpClient();
+        String url = "http://tefox.esy.es/registro.php";
+
+        RequestParams parametros = new RequestParams();
+
+        parametros.put("nombre","\""+nombre+"\"");
+        parametros.put("contraseña","\""+contraseña+"\"");
+        parametros.put("correo","\""+correo+"\"");
+        parametros.put("fecha","\""+fecha+"\"");
+
+        client.post(url, parametros, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                System.out.println("Registrado");
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                System.out.println("No registrado");
+            }
+        });
     }
 
-    public void addUsuario(Usuario usuario){
-        final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
-        globalVariable.addUsuarioArray(usuario);
-    }
+
 
 
 }
