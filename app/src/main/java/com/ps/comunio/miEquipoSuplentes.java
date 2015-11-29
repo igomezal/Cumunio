@@ -107,11 +107,11 @@ public class miEquipoSuplentes extends ListFragment {
 
     public void vender(Jugador player){
         AsyncHttpClient client = new AsyncHttpClient();
-        String url = "http://tefox.esy.es/fichar.php";
+        String url = "http://tomatodevelopers.com/cumunio/fichar.php";
         RequestParams parametros = new RequestParams();
 
-        parametros.put("user", "\"Nadie\"");
-        parametros.put("nombre", "\"" + player.getNombre() + "\"");
+        parametros.put("user", "Nadie");
+        parametros.put("nombre", player.getNombre());
 
         client.post(url, parametros, new AsyncHttpResponseHandler() {
             @Override
@@ -128,11 +128,11 @@ public class miEquipoSuplentes extends ListFragment {
 
     public void hacerTitular(Jugador player){
         AsyncHttpClient client = new AsyncHttpClient();
-        String url = "http://tefox.esy.es/titular.php";
+        String url = "http://tomatodevelopers.com/cumunio/titular.php";
         RequestParams parametros = new RequestParams();
 
-        parametros.put("titular", "\"Titular\"");
-        parametros.put("nombre", "\"" + player.getNombre() + "\"");
+        parametros.put("titular", "Titular");
+        parametros.put("nombre", player.getNombre());
 
         client.post(url, parametros, new AsyncHttpResponseHandler() {
             @Override
@@ -175,13 +175,13 @@ public class miEquipoSuplentes extends ListFragment {
 
     public void obtJugadores(){
         AsyncHttpClient client = new AsyncHttpClient();
-        String url="http://tefox.esy.es/jugador.php";
+        String url="http://tomatodevelopers.com/cumunio/jugador.php";
 
         RequestParams parametros = new RequestParams();
 
         //Sustituir por el usuario
-        parametros.put("dueño", "\"" + user + "\"");
-        parametros.put("titular", "\"Suplente\"");
+        parametros.put("dueño", user);
+        parametros.put("titular", "Suplente");
 
         client.post(url, parametros, new AsyncHttpResponseHandler() {
             @Override
@@ -207,7 +207,7 @@ public class miEquipoSuplentes extends ListFragment {
 
             for(int i=0;i<jsonArray.length();i++){
                 nombre = jsonArray.getJSONObject(i).getString("Nombre");
-                equipo = jsonArray.getJSONObject(i).getString("equipo");
+                equipo = jsonArray.getJSONObject(i).getString("Equipo");
                 pos = jsonArray.getJSONObject(i).getString("Posicion");
                 valor = jsonArray.getJSONObject(i).getString("Coste");
                 puntos = jsonArray.getJSONObject(i).getInt("Puntos");
@@ -236,10 +236,10 @@ public class miEquipoSuplentes extends ListFragment {
 
     public void obtSaldo(){
         AsyncHttpClient client =new AsyncHttpClient();
-        String url="http://tefox.esy.es/saldo.php";
+        String url="http://tomatodevelopers.com/cumunio/saldo.php";
 
         RequestParams parametros = new RequestParams();
-        parametros.put("usuario","\""+user+"\"");
+        parametros.put("usuario",user);
         client.post(url, parametros, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -275,11 +275,11 @@ public class miEquipoSuplentes extends ListFragment {
 
     public void venta(String jugador){
         AsyncHttpClient client =new AsyncHttpClient();
-        String url="http://tefox.esy.es/venta.php";
+        String url="http://tomatodevelopers.com/cumunio/venta.php";
 
         RequestParams parametros = new RequestParams();
-        parametros.put("usuario","\""+user+"\"");
-        parametros.put("jugador","\""+jugador+"\"");
+        parametros.put("usuario",user);
+        parametros.put("jugador",jugador);
 
         client.post(url, parametros, new AsyncHttpResponseHandler() {
             @Override

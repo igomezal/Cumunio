@@ -72,7 +72,7 @@ public class fragmentInicio extends Fragment {
 
     public void obtNoticias(){
         AsyncHttpClient client = new AsyncHttpClient();
-        String url="http://tefox.esy.es/noticias.php";
+        String url="http://tomatodevelopers.com/cumunio/noticias.php";
 
         RequestParams parametros = new RequestParams();
 
@@ -116,10 +116,10 @@ public class fragmentInicio extends Fragment {
 
     public void obtSaldo(){
         AsyncHttpClient client =new AsyncHttpClient();
-        String url="http://tefox.esy.es/saldo.php";
+        String url="http://tomatodevelopers.com/cumunio/saldo.php";
 
         RequestParams parametros = new RequestParams();
-        parametros.put("usuario","\""+user+"\"");
+        parametros.put("usuario",user);
         client.post(url, parametros, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
