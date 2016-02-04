@@ -5,7 +5,6 @@ import java.util.ArrayList;
 /**
  * Created by sergiownd on 25/10/15.
  */
- 
 public class Equipo implements Comparable<Equipo> {
     private String EqNombre;
     private int EqValor;
