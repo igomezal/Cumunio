@@ -106,7 +106,7 @@ public class miEquipoTitulares extends ListFragment {
 
     public void vender(Jugador player){
         AsyncHttpClient client = new AsyncHttpClient();
-        String url = "http://tomatodevelopers.com/cumunio/fichar.php";
+        String url = "http://cumunio.esy.es/fichar.php";
         RequestParams parametros = new RequestParams();
 
         parametros.put("user", "Nadie");
@@ -127,7 +127,7 @@ public class miEquipoTitulares extends ListFragment {
 
     public void hacerSuplente(Jugador player){
         AsyncHttpClient client = new AsyncHttpClient();
-        String url = "http://tomatodevelopers.com/cumunio/titular.php";
+        String url = "http://cumunio.esy.es/titular.php";
         RequestParams parametros = new RequestParams();
 
         parametros.put("titular", "Suplente");
@@ -170,7 +170,7 @@ public class miEquipoTitulares extends ListFragment {
 
     public void obtJugadores(){
         AsyncHttpClient client = new AsyncHttpClient();
-        String url="http://tomatodevelopers.com/cumunio/jugador.php";
+        String url="http://cumunio.esy.es/jugador.php";
 
         RequestParams parametros = new RequestParams();
 
@@ -232,7 +232,7 @@ public class miEquipoTitulares extends ListFragment {
 
     public void obtSaldo(){
         AsyncHttpClient client =new AsyncHttpClient();
-        String url="http://tomatodevelopers.com/cumunio/saldo.php";
+        String url="http://cumunio.esy.es/saldo.php";
 
         RequestParams parametros = new RequestParams();
         parametros.put("usuario",user);
@@ -271,7 +271,7 @@ public class miEquipoTitulares extends ListFragment {
 
     public void venta(String jugador){
         AsyncHttpClient client =new AsyncHttpClient();
-        String url="http://tomatodevelopers.com/cumunio/venta.php";
+        String url="http://cumunio.esy.es/venta.php";
 
         RequestParams parametros = new RequestParams();
         parametros.put("usuario",user);

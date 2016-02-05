@@ -60,7 +60,7 @@ public class RegistroActivity extends AppCompatActivity {
 
     public void addUsuario(String nombre,String contraseña,String correo){
         AsyncHttpClient client = new AsyncHttpClient();
-        String url = "http://tomatodevelopers.com/cumunio/registro.php";
+        String url = "http://cumunio.esy.es/registro.php";
 
         RequestParams parametros = new RequestParams();
 

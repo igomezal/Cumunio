@@ -98,7 +98,7 @@ public class FragmentoEquipo extends ListFragment {
 
     public void obtEquipos(){
         AsyncHttpClient client = new AsyncHttpClient();
-        String url="http://tomatodevelopers.com/cumunio/equipos.php";
+        String url="http://cumunio.esy.es/equipos.php";
 
         RequestParams parametros = new RequestParams();
 
@@ -148,7 +148,7 @@ public class FragmentoEquipo extends ListFragment {
 
     public void obtSaldo(){
         AsyncHttpClient client =new AsyncHttpClient();
-        String url="http://tomatodevelopers.com/cumunio/saldo.php";
+        String url="http://cumunio.esy.es/saldo.php";
 
         RequestParams parametros = new RequestParams();
         parametros.put("usuario", user);

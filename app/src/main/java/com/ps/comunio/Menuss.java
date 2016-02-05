@@ -41,26 +41,7 @@ public class Menuss extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
-        //Poner en el menu el nombre del usuario que se introduzca en la actividad anterior.Pensar si agregar tambien imagen
-        /*
-        //Eventos del Drawer Layout
-        drawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
-            @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {
-            }
-            @Override
-            public void onDrawerOpened(View drawerView) {
-            }
-            @Override
-            public void onDrawerClosed(View drawerView) {
-            }
-            @Override
-            public void onDrawerStateChanged(int newState) {
-            }
-        });
-        */
 
-        //Cambiar fragmento por uno de bienvenida
         Fragment fragment = new fragmentInicio();
 
         getSupportFragmentManager().beginTransaction()
@@ -147,4 +128,3 @@ public class Menuss extends AppCompatActivity {
         return globalVariable.getUsuario();
     }
 }
-

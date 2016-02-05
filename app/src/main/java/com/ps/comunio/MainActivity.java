@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void obtContraseña(String nombre,String strPass){
         AsyncHttpClient client = new AsyncHttpClient();
-        String url = "http://tomatodevelopers.com/cumunio/login.php";
+        String url = "http://cumunio.esy.es/login.php";
 
         RequestParams parametros = new RequestParams();
 
