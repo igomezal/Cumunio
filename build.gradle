@@ -37,10 +37,32 @@ task pull{
 		repo.pull()
 	}
 }
-task push{
+task pushNuevaRama{
 	description 'Push proyecto'
 	doLast{
 		def repo = Grgit.open(project.file('.'))
+
+		def i = 0 
+		def existe
+		def booleano = false
+		def branches = repo.branch.list()
+		while(branches.size()>i){
+			if(project.hasProperty("rama") && branches.get(i).getName()==rama){
+				existe = branches.get(i).getName()
+				booleano=true
+			}
+			if(branches.get(i).getName()=="rama-gradle"){
+				existe = branches.get(i).getName()
+				booleano=true
+			}	
+			i++
+		}
+		if(booleano==true){
+			//repo.checkout(branch:'master')
+			repo.branch.remove(names:[existe],force:true)
+		}
+
+
 		if(project.hasProperty("rama") && (repo.branch.getCurrent().getName() != rama)){
 			repo.checkout(branch: rama,createBranch:true)
 			repo.push()
@@ -56,8 +78,20 @@ task push{
 			repo.commit(message: 'Cambios Gradle',all:true)
 			repo.push()
 		}
-		print "Realizado push a la rama: ${repo.branch.getCurrent().getName()} en la que se encuentra actualmente"	
+
+		def ramaObjetivo = repo.branch.getCurrent().getName()
+		repo.checkout(branch:'master')
+
+		print "Realizado push a la rama: ${ramaObjetivo} y actualmente se encuentra en la rama master"	
 	}	
+}
+
+task pushActual{
+	doLast{
+		def repo = Grgit.open(project.file('.'))
+		repo.commit(message: 'Cambios Gradle',all:true)
+		repo.push()
+	}
 }
 
 
