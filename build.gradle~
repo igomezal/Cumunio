@@ -27,23 +27,7 @@ task cloneGitRepo{
 	doLast{
 		Grgit.clone(dir: file('./repo'), uri: 'https://github.com/igomezal/Comunio.git')
 		Grgit.init(dir: file('./repo'))
-	}		
-}
-
-task copiar(dependsOn: cloneGitRepo,type:Copy){
-	doLast{
-		into './'
-		from './repo'
 	}
-}
-
-task eliminarRepo(dependsOn: copiar,type:Delete){
-	doLast{
-		delete './repo'
-	}
-}
-task clone(dependsOn:eliminarRepo){
-
 }
 
 task pull{
