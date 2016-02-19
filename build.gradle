@@ -81,6 +81,7 @@ task pushNuevaRama{
 
 		if(project.hasProperty("rama") && (repo.branch.getCurrent().getName() != rama)){
 			repo.checkout(branch: rama,createBranch:true)
+			repo.commit(message: 'Cambios Gradle',all:true)
 			repo.push()
 		}else if(project.hasProperty("rama") && (repo.branch.getCurrent().getName() == rama)){
 			repo.commit(message: 'Cambios Gradle',all:true)
