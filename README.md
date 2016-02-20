@@ -1,2 +1,2 @@
 # Comunio
-App practica cs Prueba
+App practica cs
