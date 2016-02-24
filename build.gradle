@@ -24,26 +24,17 @@ task clean(type: Delete) {
 }
 
 task cloneGitRepo{
-	doLast{
 		Grgit.clone(dir: file('./repo'), uri: 'https://github.com/igomezal/Comunio.git')
-		Grgit.init(dir: file('./repo'))
-	}		
+		Grgit.init(dir: file('./repo'))	
 }
 
 task copiar(dependsOn: cloneGitRepo,type:Copy){
-	doLast{
 		into './'
 		from './repo'
-	}
 }
 
-task eliminarRepo(dependsOn: copiar,type:Delete){
-	doLast{
-		delete './repo'
-	}
-}
-task clone(dependsOn:eliminarRepo){
-
+task clone(dependsOn: copiar,type:Delete){
+	delete './repo'
 }
 
 task pull{
@@ -91,7 +82,6 @@ task pushNuevaRama{
 			repo.push()
 		}else{		
 			repo.checkout(branch: 'rama-gradle',createBranch:true)
-			//repo.add(update: true)
 			repo.commit(message: 'Cambios Gradle',all:true)
 			repo.push()
 		}
