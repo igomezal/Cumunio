@@ -35,7 +35,7 @@ task copiar(dependsOn: cloneGitRepo,type:Copy){
 
 task clone(dependsOn: copiar,type:Delete){
 	delete './repo'
-	Grgit.init(dir: file('./repo')) 
+	Grgit.init(dir: file('.')) 
 }
 
 task pull{
