@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 
@@ -84,7 +86,7 @@ public class Fragment1 extends ListFragment {
 
 
 
-    class AdaptadorJugador extends ArrayAdapter<Jugador>{
+     protected class AdaptadorJugador extends ArrayAdapter<Jugador>{
         public AdaptadorJugador(Context context, ArrayList<Jugador> datos){
             super(context,R.layout.listitem_jugador,datos);
         }
@@ -144,9 +146,7 @@ public class Fragment1 extends ListFragment {
         client.post(url, parametros, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                if (statusCode == 200) {
 
-                }
             }
 
             @Override
@@ -182,11 +182,12 @@ public class Fragment1 extends ListFragment {
         saldo = 0;
         try{
             JSONArray jsonArray = new JSONArray(response);
-            for(int i=0;i<jsonArray.length();i++){
+            int longitudArray = jsonArray.length();
+            for(int i=0;i<longitudArray;i++){
                 saldo = jsonArray.getJSONObject(i).getInt("Saldo");
             }
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (JSONException e){
+
         }
 
     }
@@ -222,10 +223,10 @@ public class Fragment1 extends ListFragment {
         datos.clear();
         try{
             JSONArray jsonArray = new JSONArray(response);
-            String nombre,equipo,pos,valor;
-            int puntos,imagen;
-
-            for(int i=0;i<jsonArray.length();i++){
+            String nombre,equipo,pos,valor = "";
+            int puntos,imagen = 0;
+            int longitudArray = jsonArray.length();
+            for(int i=0;i<longitudArray;i++){
                 nombre = jsonArray.getJSONObject(i).getString("Nombre");
                 equipo = jsonArray.getJSONObject(i).getString("Equipo");
                 pos = jsonArray.getJSONObject(i).getString("Posicion");
@@ -234,8 +235,8 @@ public class Fragment1 extends ListFragment {
                 imagen = convertirRutaEnId(jsonArray.getJSONObject(i).getString("Imagen"));
                 datos.add(new Jugador(nombre,equipo,pos,valor,puntos,imagen));
             }
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (JSONException e){
+
         }
     }
     private int convertirRutaEnId(String nombre){

@@ -19,6 +19,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 
@@ -59,45 +60,41 @@ public class miEquipoTitulares extends ListFragment {
         builder.setTitle("Gestión de jugador").setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
-                switch (item) {
-                    case 0:
-                        AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
-                        builder1.setTitle("Vender Jugador");
-                        builder1.setMessage("¿Desea vender el jugador " + datos.get(identificador).getNombre() + " por " + datos.get(identificador).getValor() + "?");
-                        builder1.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(getActivity(), "Ha vendido a " + datos.get(identificador).getNombre() + ".", Toast.LENGTH_LONG).show();
-                                venta(datos.get(identificador).getNombre());
-                                vender(datos.get(identificador));
-                                obtJugadores();
-                                obtSaldo();
-                                adapter.notifyDataSetChanged();
-                            }
-                        });
-                        builder1.setNegativeButton("No", null);
-                        builder1.create().show();
-                        adapter.notifyDataSetChanged();
-                        break;
-                    case 1:
-                        AlertDialog.Builder builder2 = new AlertDialog.Builder(getContext());
-                        builder2.setTitle("Hacer Suplente");
-                        builder2.setMessage("¿Desea hacer suplente a " + datos.get(identificador).getNombre() + "?");
-                        builder2.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(getActivity(), datos.get(identificador).getNombre() + " ahora es suplente.", Toast.LENGTH_LONG).show();
-                                hacerSuplente(datos.get(identificador));
-                                obtJugadores();
-                                adapter.notifyDataSetChanged();
-                            }
-                        });
-                        builder2.setNegativeButton("No", null);
-                        builder2.create().show();
-                        adapter.notifyDataSetChanged();
-                        break;
+                if(item == 0) {
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
+                    builder1.setTitle("Vender Jugador");
+                    builder1.setMessage("¿Desea vender el jugador " + datos.get(identificador).getNombre() + " por " + datos.get(identificador).getValor() + "?");
+                    builder1.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Toast.makeText(getActivity(), "Ha vendido a " + datos.get(identificador).getNombre() + ".", Toast.LENGTH_LONG).show();
+                            venta(datos.get(identificador).getNombre());
+                            vender(datos.get(identificador));
+                            obtJugadores();
+                            obtSaldo();
+                            adapter.notifyDataSetChanged();
+                        }
+                    });
+                    builder1.setNegativeButton("No", null);
+                    builder1.create().show();
+                    adapter.notifyDataSetChanged();
+                }else if(item == 1) {
+                    AlertDialog.Builder builder2 = new AlertDialog.Builder(getContext());
+                    builder2.setTitle("Hacer Suplente");
+                    builder2.setMessage("¿Desea hacer suplente a " + datos.get(identificador).getNombre() + "?");
+                    builder2.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Toast.makeText(getActivity(), datos.get(identificador).getNombre() + " ahora es suplente.", Toast.LENGTH_LONG).show();
+                            hacerSuplente(datos.get(identificador));
+                            obtJugadores();
+                            adapter.notifyDataSetChanged();
+                        }
+                    });
+                    builder2.setNegativeButton("No", null);
+                    builder2.create().show();
+                    adapter.notifyDataSetChanged();
                 }
-
             }
         });
         builder.create().show();
@@ -146,7 +143,7 @@ public class miEquipoTitulares extends ListFragment {
         });
     }
 
-    class AdaptadorJugador extends ArrayAdapter<Jugador>{
+    protected class AdaptadorJugador extends ArrayAdapter<Jugador>{
         public AdaptadorJugador(Context context, ArrayList<Jugador> datos){
             super(context,R.layout.listitem_jugador,datos);
         }
@@ -197,10 +194,10 @@ public class miEquipoTitulares extends ListFragment {
         datos.clear();
         try{
             JSONArray jsonArray = new JSONArray(response);
-            String nombre,equipo,pos,valor;
-            int puntos,imagen;
-
-            for(int i=0;i<jsonArray.length();i++){
+            String nombre,equipo,pos,valor = "";
+            int puntos,imagen = 0;
+            int longitudArray = jsonArray.length();
+            for(int i=0;i<longitudArray;i++){
                 nombre = jsonArray.getJSONObject(i).getString("Nombre");
                 equipo = jsonArray.getJSONObject(i).getString("Equipo");
                 pos = jsonArray.getJSONObject(i).getString("Posicion");
@@ -209,8 +206,8 @@ public class miEquipoTitulares extends ListFragment {
                 imagen = convertirRutaEnId(jsonArray.getJSONObject(i).getString("Imagen"));
                 datos.add(new Jugador(nombre,equipo,pos,valor,puntos,imagen));
             }
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (JSONException e){
+
         }
     }
     private int convertirRutaEnId(String nombre){
@@ -256,11 +253,12 @@ public class miEquipoTitulares extends ListFragment {
         saldo = 0;
         try{
             JSONArray jsonArray = new JSONArray(response);
-            for(int i=0;i<jsonArray.length();i++){
+            int longitudArray = jsonArray.length();
+            for(int i=0;i<longitudArray;i++){
                 saldo = jsonArray.getJSONObject(i).getInt("Saldo");
             }
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (JSONException e){
+
         }
 
     }
@@ -280,9 +278,7 @@ public class miEquipoTitulares extends ListFragment {
         client.post(url, parametros, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                if (statusCode == 200) {
 
-                }
             }
 
             @Override

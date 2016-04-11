@@ -2,8 +2,6 @@ package com.ps.comunio;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -14,16 +12,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-
 import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+
 
 import cz.msebera.android.httpclient.Header;
 
@@ -60,18 +56,20 @@ public class infoEquipo extends AppCompatActivity {
         tvPuntos = (TextView)findViewById(R.id.tvPuntos);
         escudo = (ImageView)findViewById(R.id.imageEscudo);
 
-        tvNombre.setText("Equipo de "+dueño);
-        tvValor.setText("Valor: "+valor);
-        tvPuntos.setText("Puntos: " + puntos);
+        StringBuilder equipo = new StringBuilder().append("Equipo de ").append(dueño);
+        StringBuilder va = new StringBuilder().append("Valor: ").append(valor);
+        StringBuilder pu = new StringBuilder().append("Puntos: ").append(puntos);
+
+        tvNombre.setText(equipo.toString());
+        tvValor.setText(va.toString());
+        tvPuntos.setText(pu.toString());
         escudo.setImageResource(imagen);
         obtSaldo();
         obtJugadores();
 
-        Button sald = (Button) findViewById(R.id.floating_button19);
-        sald.setText(getSald());
     }
 
-    class AdaptadorJugador extends ArrayAdapter<Jugador>{
+    protected class AdaptadorJugador extends ArrayAdapter<Jugador>{
         public AdaptadorJugador(Context context, ArrayList<Jugador> datos){
             super(context,R.layout.listitem_jugador,datos);
         }
@@ -91,11 +89,6 @@ public class infoEquipo extends AppCompatActivity {
 
             return item;
         }
-    }
-
-    public String getSald(){
-        GlobalClass globalVariable = (GlobalClass) getApplicationContext();
-        return globalVariable.getSaldo();
     }
 
     public void obtJugadores(){
@@ -127,10 +120,10 @@ public class infoEquipo extends AppCompatActivity {
         datos.clear();
         try{
             JSONArray jsonArray = new JSONArray(response);
-            String nombre,equipo,pos,valor;
-            int puntos,imagen;
-
-            for(int i=0;i<jsonArray.length();i++){
+            String nombre,equipo,pos,valor = "";
+            int puntos,imagen = 0;
+            int longitudArray = jsonArray.length();
+            for(int i=0;i<longitudArray;i++){
                 nombre = jsonArray.getJSONObject(i).getString("Nombre");
                 equipo = jsonArray.getJSONObject(i).getString("Equipo");
                 pos = jsonArray.getJSONObject(i).getString("Posicion");
@@ -139,8 +132,8 @@ public class infoEquipo extends AppCompatActivity {
                 imagen = convertirRutaEnId(jsonArray.getJSONObject(i).getString("Imagen"));
                 datos.add(new Jugador(nombre,equipo,pos,valor,puntos,imagen));
             }
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (JSONException e){
+
         }
     }
     private int convertirRutaEnId(String nombre){
@@ -180,11 +173,12 @@ public class infoEquipo extends AppCompatActivity {
         saldo = 0;
         try{
             JSONArray jsonArray = new JSONArray(response);
-            for(int i=0;i<jsonArray.length();i++){
+            int longitudArray = jsonArray.length();
+            for(int i=0;i<longitudArray;i++){
                 saldo = jsonArray.getJSONObject(i).getInt("Saldo");
             }
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (JSONException e){
+
         }
 
     }

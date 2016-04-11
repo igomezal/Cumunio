@@ -1,9 +1,6 @@
 package com.ps.comunio;
 
-
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -15,17 +12,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-
 import org.json.JSONArray;
+import org.json.JSONException;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 import cz.msebera.android.httpclient.Header;
@@ -58,7 +51,7 @@ public class FragmentoEquipo extends ListFragment {
     }
 
 
-    class AdaptadorEquipo extends ArrayAdapter<Equipo>{
+    protected class AdaptadorEquipo extends ArrayAdapter<Equipo>{
         public AdaptadorEquipo(Context context, ArrayList<Equipo> datos){
             super(context,R.layout.listitem_equipo,datos);
         }
@@ -121,17 +114,17 @@ public class FragmentoEquipo extends ListFragment {
         datos.clear();
         try{
             JSONArray jsonArray = new JSONArray(response);
-            String nombre;
-            int imagen,puntos;
-
-            for(int i=0;i<jsonArray.length();i++){
+            String nombre = "";
+            int imagen,puntos = 0;
+            int longitudArray = jsonArray.length();
+            for(int i=0;i<longitudArray;i++){
                 nombre = jsonArray.getJSONObject(i).getString("Nombre");
                 imagen = convertirRutaEnId(jsonArray.getJSONObject(i).getString("Avatar"));
                 puntos = jsonArray.getJSONObject(i).getInt("Puntos");
                 datos.add(new Equipo(nombre,imagen,puntos));
             }
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (JSONException e){
+
         }
     }
     private int convertirRutaEnId(String nombre){
@@ -172,11 +165,12 @@ public class FragmentoEquipo extends ListFragment {
         saldo = 0;
         try{
             JSONArray jsonArray = new JSONArray(response);
-            for(int i=0;i<jsonArray.length();i++){
+            int longitudArray = jsonArray.length();
+            for(int i=0;i<longitudArray;i++){
                 saldo = jsonArray.getJSONObject(i).getInt("Saldo");
             }
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (JSONException e){
+
         }
 
     }

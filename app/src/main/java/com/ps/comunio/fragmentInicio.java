@@ -1,7 +1,6 @@
 package com.ps.comunio;
 
 import android.content.Context;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,17 +10,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-
 import org.json.JSONArray;
+import org.json.JSONException;
 
-import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
-
 import cz.msebera.android.httpclient.Header;
 
 
@@ -53,7 +49,7 @@ public class fragmentInicio extends Fragment {
         return rootView;
     }
 
-    class AdaptadorNoticias extends ArrayAdapter<Noticia> {
+    protected class AdaptadorNoticias extends ArrayAdapter<Noticia> {
         public AdaptadorNoticias(Context context, List<Noticia> datos){
             super(context,R.layout.listitem_noticia,datos);
         }
@@ -95,17 +91,18 @@ public class fragmentInicio extends Fragment {
     public void obtNoticiaJSON(String response){
         try{
             JSONArray jsonArray = new JSONArray(response);
-            String titulo;
-            String cuerpo;
-            String fecha;
-            for(int i=0;i<jsonArray.length();i++){
+            String titulo = "";
+            String cuerpo = "";
+            String fecha = "";
+            int longitudArray = jsonArray.length();
+            for(int i=0;i<longitudArray;i++){
                 titulo = jsonArray.getJSONObject(i).getString("titulo");
                 cuerpo = jsonArray.getJSONObject(i).getString("cuerpo");
                 fecha = jsonArray.getJSONObject(i).getString("fecha");
                 datos.add(new Noticia(titulo,cuerpo,fecha));
             }
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (JSONException e){
+
         }
     }
 
@@ -140,11 +137,12 @@ public class fragmentInicio extends Fragment {
         saldo = 0;
         try{
             JSONArray jsonArray = new JSONArray(response);
-            for(int i=0;i<jsonArray.length();i++){
+            int longitudArray = jsonArray.length();
+            for(int i=0;i<longitudArray;i++){
                 saldo = jsonArray.getJSONObject(i).getInt("Saldo");
             }
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (JSONException e){
+
         }
 
     }

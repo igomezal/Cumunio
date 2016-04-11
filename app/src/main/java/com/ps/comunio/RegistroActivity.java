@@ -41,17 +41,24 @@ public class RegistroActivity extends AppCompatActivity {
         EditText pass2Edit = (EditText)findViewById(R.id.editPass2);
         String strPass2 = pass2Edit.getText().toString();
 
-        if((strUsuario != null && !strUsuario.isEmpty()) && (strPass != null && !strPass.isEmpty())){
+        boolean comprobacionUsuario = strUsuario != null && !strUsuario.isEmpty();
+        boolean comprobacionPassword = strPass != null && !strPass.isEmpty();
+
+        if(comprobacionUsuario && comprobacionPassword){
             if(strPass.equals(strPass2)) {
+
+                StringBuilder usuarioCreado = new StringBuilder();
+                usuarioCreado.append("Usuario ").append(strUsuario).append(" creado.");
+
                 addUsuario(strUsuario, strPass, strCorreo);
 
-                Toast.makeText(this, "Usuario " + strUsuario + " creado.", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, usuarioCreado.toString(), Toast.LENGTH_LONG).show();
 
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
-            }
-            else
+            }else {
                 Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_LONG).show();
+            }
         }else{
             Toast.makeText(this, "Usuario o contraseña vacios, intentelo de nuevo", Toast.LENGTH_LONG).show();
         }
@@ -71,12 +78,12 @@ public class RegistroActivity extends AppCompatActivity {
         client.post(url, parametros, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                System.out.println("Registrado");
+
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                System.out.println("No registrado");
+
             }
         });
     }

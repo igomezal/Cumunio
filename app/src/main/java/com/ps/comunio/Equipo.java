@@ -1,11 +1,11 @@
 package com.ps.comunio;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 
 /**
  * Created by sergiownd on 25/10/15.
  */
-public class Equipo implements Comparable<Equipo> {
+public class Equipo implements Comparable<Equipo>, Serializable {
     private String EqNombre;
     private int EqValor;
     private int EqImagen;
@@ -35,5 +35,15 @@ public class Equipo implements Comparable<Equipo> {
         if(this.puntos>another.puntos)
             return -1;
         return 0;
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(o == null) return false;
+        if(o instanceof Equipo) {
+            Equipo c = (Equipo) o;
+            return this.getPuntos() == c.getPuntos();
+        }
+        return false;
     }
 }

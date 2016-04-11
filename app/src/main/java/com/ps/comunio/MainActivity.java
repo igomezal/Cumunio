@@ -9,14 +9,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-
 import org.json.JSONArray;
-
-import java.util.ArrayList;
+import org.json.JSONException;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -29,10 +26,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
-
     }
+
     public void sendMessage(View view){
         EditText usuario = (EditText) findViewById(R.id.username);
         String strUsuario = usuario.getText().toString();
@@ -41,9 +36,6 @@ public class MainActivity extends AppCompatActivity {
         String strPass = pass.getText().toString();
 
         obtContraseña(strUsuario,strPass);
-
-
-
     }
 
     public void logTest(View view){
@@ -117,11 +109,12 @@ public class MainActivity extends AppCompatActivity {
         contra = "";
         try{
             JSONArray jsonArray = new JSONArray(response);
-            for(int i=0;i<jsonArray.length();i++){
+            int longitudArray = jsonArray.length();
+            for(int i=0;i<longitudArray;i++){
                 contra =jsonArray.getJSONObject(i).getString("Contraseña");
             }
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (JSONException e){
+
         }
     }
 
