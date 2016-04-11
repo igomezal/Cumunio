@@ -34,6 +34,7 @@ task pull{
 	description 'Pull proyecto'
 	doLast{
 		def repo = Grgit.open(project.file('.'))
+		repo.checkout(branch:'master')
 		repo.pull()
 	}
 }
